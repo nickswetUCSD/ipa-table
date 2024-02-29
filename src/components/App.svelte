@@ -1,9 +1,13 @@
 <script>
     function clicking(row,col, voic){
+        let fileName = "src/media/consonants/" + row + '-' + col + '-' + voic+ '.wav';
+        let sound = document.getElementById('cons');
+        sound.src = fileName;
+        sound.play()
         console.log(row, col, voic)
     }
 </script>
-
+<audio id= 'cons'></audio>
 <body>
     <table>
         <tr>
@@ -28,11 +32,11 @@
             <td> </td>
             <td> </td>
             <td> </td>
-            <td><button on:click = {() => clicking('plos','alv', 'unv')}>t</button></td>
+            <td class = 'right'><button on:click = {() => clicking('plos','alv', 'unv')}>t</button></td>
             <td><button on:click = {() => clicking('plos','alv', 'v')}>d</button> </td>
             <td> </td>
             <td> </td>
-            <td><button on:click = {() => clicking('plos','retro', 'unv')}>ʈ</button></td>
+            <td class = 'right'><button on:click = {() => clicking('plos','retro', 'unv')}>ʈ</button></td>
             <td><button on:click = {() => clicking('plos','retro', 'v')}>ɖ</button></td>
             <td><button on:click = {() => clicking('plos','pal', 'unv')}>c</button></td>
             <td><button on:click = {() => clicking('plos','pal', 'v')}>ɟ</button></td>
@@ -124,15 +128,15 @@
             <td> Fricative </td>
             <td> <button on:click = {() => clicking('fric','bilab', 'unv')}>ɸ </button></td>
             <td> <button on:click = {() => clicking('fric','bilab', 'v')}> β</button></td>
-            <td> <button on:click = {() => clicking('fric','labdent', 'unv')}>f</button></td>
+            <td class = 'right'> <button on:click = {() => clicking('fric','labdent', 'unv')}>f</button></td>
             <td> <button on:click = {() => clicking('fric','labdent', 'v')}>v</button></td>
             <td> <button on:click = {() => clicking('fric','dent', 'unv')}>θ</button></td>
             <td> <button on:click = {() => clicking('fric','dent', 'v')}>ð</button></td>
-            <td> <button on:click = {() => clicking('fric','alv', 'unv')}>s</button></td>
+            <td class = 'right'> <button on:click = {() => clicking('fric','alv', 'unv')}>s</button></td>
             <td> <button on:click = {() => clicking('fric','alv', 'v')}>z</button></td>
-            <td> <button on:click = {() => clicking('fric','palv', 'unv')}>ʃ</button></td>
+            <td class ='right'> <button on:click = {() => clicking('fric','palv', 'unv')}>ʃ</button></td>
             <td> <button on:click = {() => clicking('fric','palv', 'v')}>ʒ</button></td>
-            <td> <button on:click = {() => clicking('fric','retro', 'unv')}>ʂ</button></td>
+            <td class = 'right'> <button on:click = {() => clicking('fric','retro', 'unv')}>ʂ</button></td>
             <td> <button on:click = {() => clicking('fric','retro', 'v')}>ʐ</button></td>
             <td> <button on:click = {() => clicking('fric','pal', 'unv')}>ç</button></td>
             <td> <button on:click = {() => clicking('fric','pal', 'v')}>ʝ</button></td>
@@ -140,7 +144,7 @@
             <td> <button on:click = {() => clicking('fric','vel', 'v')}>ɣ</button></td>
             <td> <button on:click = {() => clicking('fric','uvu', 'unv')}>χ</button></td>
             <td> <button on:click = {() => clicking('fric','uvu', 'v')}>ʁ</button></td>
-            <td> <button on:click = {() => clicking('fric','phar', 'unv')}>ħ</button></td>
+            <td class = 'right'> <button on:click = {() => clicking('fric','phar', 'unv')}>ħ</button></td>
             <td> <button on:click = {() => clicking('fric','phar', 'v')}>ʕ</button></td>
             <td><button on:click = {() => clicking('fric','glot', 'unv')}> h</button></td>
             <td><button on:click = {() => clicking('fric','glot', 'v')}> ɦ</button></td>
@@ -153,7 +157,7 @@
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('latfric','alv', 'unv')}>ɬ</button></td>
+            <td class = 'right'> <button on:click = {() => clicking('latfric','alv', 'unv')}>ɬ</button></td>
             <td> <button on:click = {() => clicking('latfric','alv', 'v')}> ɮ</button></td>
             <td> </td>
             <td> </td>
@@ -224,3 +228,8 @@
     <a href='https://phonetics.ucla.edu/course/chapter1/chapter1.html'>Link to audio file dataset here </a>
 </body>
 
+<style>
+    .right{
+        text-align: right;
+    }
+</style>
