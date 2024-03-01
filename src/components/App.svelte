@@ -225,6 +225,10 @@
             <td> </td>
         </tr>
     </table>
+
+
+    <!---img... dont know why its not working-->
+    <img src = "src/media/viz_default.png">
     <a href='https://phonetics.ucla.edu/course/chapter1/chapter1.html'>Link to audio file dataset here </a>
 </body>
 
