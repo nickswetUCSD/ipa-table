@@ -1,11 +1,28 @@
 <script>
-    function clicking(row,col, voic){
-        let fileName = "src/media/consonants/" + row + '-' + col + '-' + voic+ '.wav';
+
+    function audioPlay(fn){
         let sound = document.getElementById('cons');
-        sound.src = fileName;
+        sound.src = fn;
         sound.play()
+    }
+
+    function imgUpdate(fn){
+        img_src = fn
+    }
+    function clicking(row,col, voic){
+        let fileName_aud = "src/media/consonants/" + row + '-' + col + '-' + voic+ '.wav';
+        let fileName_img = "src/media/images/viz_" + col + '.png';
+
+        audioPlay(fileName_aud)
+        if  (['dent', 'labdent', 'phar'].includes(col)){
+            fileName_img = "src/media/images/viz_default.png"
+        }
+        imgUpdate(fileName_img)
         console.log(row, col, voic)
     }
+    let img_src = "src/media/images/viz_default.png"
+    
+    
 </script>
 <audio id= 'cons'></audio>
 <body>
@@ -228,12 +245,17 @@
 
 
     <!---img... dont know why its not working-->
-    <img src = "src/media/viz_default.png">
+    <img src = {img_src} class = 'con_image' alt = "oops">
     <a href='https://phonetics.ucla.edu/course/chapter1/chapter1.html'>Link to audio file dataset here </a>
 </body>
 
 <style>
     .right{
         text-align: right;
+    }
+    .con_image{
+        position: absolute;
+        left:1020px;
+        top:100px;
     }
 </style>
