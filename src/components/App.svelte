@@ -38,7 +38,7 @@ function clicking(row, col, voic){
 
     audioPlay(fileName_aud)
     if  (['dent', 'labdent', 'phar'].includes(col)){
-        fileName_img = "/static/media/images/viz_default.png"
+        fileName_img = "/src/components/media/images/viz_default.png"
     }
     imgUpdate(fileName_img)
     // console.log(row, col, voic)
