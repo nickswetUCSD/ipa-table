@@ -25,12 +25,12 @@ function clicking(row, col, voic){
     last_clicked_col = col;
     last_clicked_voic = voic;
 
-    let fileName_aud = "/src/media/consonants/" + row + '-' + col + '-' + voic + '.wav';
-    let fileName_img = "/src/media/images/viz-" + col + '.png';
+    let fileName_aud = "media/consonants/" + row + '-' + col + '-' + voic + '.wav';
+    let fileName_img = "media/images/viz-" + col + '.png';
 
     audioPlay(fileName_aud)
     if  (['dent', 'labdent', 'phar'].includes(col)){
-        fileName_img = "/src/media/images/viz-default.png"
+        fileName_img = "media/images/viz-default.png"
     }
     imgUpdate(fileName_img)
     // console.log(row, col, voic)
@@ -46,7 +46,7 @@ function imgUpdate(fn){
     img_src = fn
 }
 
-let img_src = "/src/media/images/viz-default.png"
+let img_src = "media/images/viz-default.png"
 
 </script>
 
@@ -272,7 +272,7 @@ let img_src = "/src/media/images/viz-default.png"
 
     <!-- <Visualizer {sound}/> -->
 
-    <!-- <img src = {base + img_src} class = 'con_image' alt = "oops"> -->
+    <img src = {img_src} class = 'con_image' alt = "oops">
 
     <!-- CIRCLE DRAWING -->
     <svg>
