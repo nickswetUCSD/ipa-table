@@ -19,15 +19,7 @@ let last_clicked_voic;
 const circle_radius = 8;
 const cols_with_lats = ['alv','retro','pal','vel'];
 
-function audioPlay(fn){
-    sound = document.getElementById('cons');
-    sound.src = fn;
-    sound.play();
-}
 
-function imgUpdate(fn){
-    img_src = fn
-}
 function clicking(row, col, voic){
     last_clicked_row = row;
     last_clicked_col = col;
@@ -43,6 +35,17 @@ function clicking(row, col, voic){
     imgUpdate(fileName_img)
     // console.log(row, col, voic)
 }
+
+function audioPlay(fn){
+    sound = document.getElementById('cons');
+    sound.src = fn;
+    sound.play();
+}
+
+function imgUpdate(fn){
+    img_src = fn
+}
+
 let img_src = "/src/media/images/viz-default.png"
 
 </script>
@@ -269,9 +272,7 @@ let img_src = "/src/media/images/viz-default.png"
 
     <!-- <Visualizer {sound}/> -->
 
-    <!---img... dont know why its not working-->
-    <!-- what you mean?? it works awesome! great work! -->
-    <img src = {base + img_src} class = 'con_image' alt = "oops">
+    <!-- <img src = {base + img_src} class = 'con_image' alt = "oops"> -->
 
     <!-- CIRCLE DRAWING -->
     <svg>
