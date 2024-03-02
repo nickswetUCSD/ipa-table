@@ -271,7 +271,7 @@ let img_src = "/src/media/images/viz_default.png"
 
     <!---img... dont know why its not working-->
     <!-- what you mean?? it works awesome! great work! -->
-    <img src = {'..' + base + img_src} class = 'con_image' alt = "oops">
+    <img src = {base + img_src} class = 'con_image' alt = "oops">
 
     <!-- CIRCLE DRAWING -->
     <svg>
