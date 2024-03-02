@@ -33,17 +33,17 @@ function clicking(row, col, voic){
     last_clicked_col = col;
     last_clicked_voic = voic;
 
-    let fileName_aud = "../src/media/consonants/" + row + '-' + col + '-' + voic + '.wav';
-    let fileName_img = "../src/media/images/viz_" + col + '.png';
+    let fileName_aud = "/src/media/consonants/" + row + '-' + col + '-' + voic + '.wav';
+    let fileName_img = "/src/media/images/viz_" + col + '.png';
 
     audioPlay(fileName_aud)
     if  (['dent', 'labdent', 'phar'].includes(col)){
-        fileName_img = "../src/media/images/viz_default.png"
+        fileName_img = "/src/media/images/viz_default.png"
     }
     imgUpdate(fileName_img)
     // console.log(row, col, voic)
 }
-let img_src = "../src/media/images/viz_default.png"
+let img_src = "/src/media/images/viz_default.png"
 
 </script>
 
@@ -276,7 +276,7 @@ let img_src = "../src/media/images/viz_default.png"
 
     <!---img... dont know why its not working-->
     <!-- what you mean?? it works awesome! great work! -->
-    <img src = {img_src} class = 'con_image' alt = "oops">
+    <img src = {base + img_src} class = 'con_image' alt = "oops">
 
     <!-- CIRCLE DRAWING -->
     <svg>
