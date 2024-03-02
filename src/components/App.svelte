@@ -2,7 +2,9 @@
 import Visualizer from '../components/Visualizer.svelte'
 import * as d3 from 'd3';
 import { onMount } from 'svelte'
+import { base } from '$app/paths'
 export let sound = null;
+
 
 // onMount(() => {
 //     window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -31,17 +33,17 @@ function clicking(row, col, voic){
     last_clicked_col = col;
     last_clicked_voic = voic;
 
-    let fileName_aud = "../src/media/consonants/" + row + '-' + col + '-' + voic + '.wav';
-    let fileName_img = "../src/media/images/viz_" + col + '.png';
+    let fileName_aud = base + "/src/media/consonants/" + row + '-' + col + '-' + voic + '.wav';
+    let fileName_img = base + "/src/media/images/viz_" + col + '.png';
 
     audioPlay(fileName_aud)
     if  (['dent', 'labdent', 'phar'].includes(col)){
-        fileName_img = "../src/media/images/viz_default.png"
+        fileName_img = base + "/src/media/images/viz_default.png"
     }
     imgUpdate(fileName_img)
     // console.log(row, col, voic)
 }
-let img_src = "../src/media/images/viz_default.png"
+let img_src = base + "/src/media/images/viz_default.png"
 
 </script>
 
