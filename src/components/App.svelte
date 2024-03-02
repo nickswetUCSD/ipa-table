@@ -34,16 +34,16 @@ function clicking(row, col, voic){
     last_clicked_voic = voic;
 
     let fileName_aud = "/src/media/consonants/" + row + '-' + col + '-' + voic + '.wav';
-    let fileName_img = "/src/media/images/viz_" + col + '.png';
+    let fileName_img = "/src/media/images/viz-" + col + '.png';
 
     audioPlay(fileName_aud)
     if  (['dent', 'labdent', 'phar'].includes(col)){
-        fileName_img = "/src/media/images/viz_default.png"
+        fileName_img = "/src/media/images/viz-default.png"
     }
     imgUpdate(fileName_img)
     // console.log(row, col, voic)
 }
-let img_src = "/src/media/images/viz_default.png"
+let img_src = "/src/media/images/viz-default.png"
 
 </script>
 
