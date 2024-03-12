@@ -1,12 +1,10 @@
 <script>
-import App from '../components/App.svelte'
+import ScrollyTeller from '../components/ScrollyTeller.svelte'
 </script>
 
 
 <body>
-    <h1>Mouth-Mapping The IPA Table 💬</h1>
-    <p></p>
-    <App />
+    <ScrollyTeller />
 </body>
 
 <style>
@@ -17,8 +15,13 @@ body {
     font-style: normal;
     font-variation-settings: "wdth" 100;
     background-color: #242331;
+    margin: 0px 0px;
 }
-h1 { 
-    color: #DDCA7D;
+
+/* Disable scrollbars */
+body::-webkit-scrollbar {
+  display: none;
 }
+
+
 </style>
