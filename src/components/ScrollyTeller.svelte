@@ -122,6 +122,17 @@
             </div>
             <App />
         </section>
+        <section>
+        <div class='translator_description'>
+            <p> 
+                We take for granted just how <b>complex</b> words truly are... can you recreate them in the mouthmap? 
+                <br>
+                Deconstruct your favorite words with this incredible IPA Translator from <a href="https://unalengua.com/ipa-translate?ttsLocale=en-US&voiceId=Salli"> Una Lengua</a>! 
+            </p>
+        </div>
+        <iframe class='translator' style="border:none;" src="https://unalengua.com/ipa-translate?ttsLocale=en-US&voiceId=Salli"></iframe>
+        </section>
+        
     </div>
     </Scroller>
 </body>
@@ -244,5 +255,19 @@
         position: absolute;
         left: 10vw;
         top: 1065vh;
+    }
+
+    .translator {
+        position: absolute;
+        left: 10vw;
+        top: 1240vh;
+        width: 75vw;
+        height: 50vh;
+    }
+
+    .translator_description {
+        position: absolute;
+        left: 10vw;
+        top: 1220vh;
     }
 </style>
