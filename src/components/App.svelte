@@ -116,6 +116,24 @@ let sound_desc_dict = {
     'back_cmid_r': 'b<b>oa</b>t, wr<b>o</b>te and p<b>o</b>pe, all of which this sound appears alongside /w/.',
     'front_open_unr': 'h<b>ow</b>, c<b>ow</b> and br<b>ow</b>n, all of which this sound appears alongside /w/.'
 }
+
+let foreign_desc_dict = {
+    'front_close_r': '. This sound is popular in other Germanic languages such as German, Dutch and Swedish.',
+    'frental_ccmid_r': '. This sound is popular in other Germanic languages such as German, Dutch and Swedish.',
+    'central_close_r': '. This sound is mostly found in various dialects of languages found across Eastern Europe, Western Asia and Africa.',
+    'central_close_unr': '. This sound is popular in Slavic languages such as Russian and Belarussian.',
+    'back_close_unr': ', but it can be found in some unique regional English dialects. This sound is also found in various languages found in East-Asia.',
+    'front_cmid_r': '. This sound is found in various other languages including German, French, Danish and Estonian.',
+    'central_cmid_unr': '. This sound is found in various other languages including Estonian, Korean and Polish',
+    'central_cmid_r': '. This sound is found in various other languages including Dutch, Uzbek and Russian.',
+    'back_cmid_unr': '. This sound is found in various other languages including Thai, Mandarin and Estonian.',
+    'front_omid_r': '. This sound is found in various other languages including French, Danish and Dutch.',
+    'central_omid_unr': ', but can be found in some unique regional English dialects. This sound is also found in various languages such as Dutch, German and Romanian.',
+    'central_omid_r': '. This sound is found in various other languages including Afrikaans, Irish and Navajo',
+    'central_oomid_unr': ' but can be found in some unique regional English dialects. This sound is also found in various languages such as Korean, Bengali, Lithuanian, Vietnamese and German.',
+    'back_open_unr': ', but can be found in certain English dialects such as British pronunciations of p<b>a</b>lm or h<b>o</b>t. This sound is also found in various languages such as Dutch, Mandarin and Finnish.',
+    'front_open_r': '. This sound is found in very few other dialects of languages including certain speakers of Danish, and certain Stockholm-variants of Swedish.'
+}
 let z_dict = {
     'r': 'Rounded', 'unr': 'Unrounded', 'v': 'Voiced', 'unv': 'Unvoiced'
 }
@@ -168,7 +186,7 @@ function clicking(row, col, voic){
     if (Object.keys(sound_desc_dict).includes(sound_label)){
         sound_desc = 'English examples include ' + sound_desc_dict[sound_label]
     } else{
-        sound_desc = 'There are no examples in English in a common dialect'
+        sound_desc = 'There are no examples in English in a common dialect' + foreign_desc_dict[sound_label]
     }
     document.getElementById('descrip').innerHTML = sound_desc
 
@@ -524,7 +542,7 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('cmid','central', 'unr')}>ǝ </button></td>
+            <td> <button on:click = {() => clicking('cmid','central', 'unr')}>ɘ </button></td>
             <td> <button class = 'round'  on:click = {() => clicking('cmid','central', 'r')}>ɵ</button></td>
             <td> </td>
             <td> </td>
