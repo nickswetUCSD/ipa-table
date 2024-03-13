@@ -18,7 +18,107 @@ let last_clicked_col;
 let last_clicked_voic;
 button_does_what = 'whether a consonant is voiced or not.';
 
+let name_dict = {'bilab': 'Bilabial', 'labdent': 'Labio-Dental',
+ 'dent': 'Dental', 'alv': 'Alveolar','palv':  'Post-Alveolar', 
+'retro': 'Retroflex', 'pal': 'Palatal', 'vel': 'Velar', 'uvu': 'Uvular', 
+'phar': 'Pharyngeal', 'glot': 'Glottal',
 
+'plos':'Plosive', 'nas': 'Nasal', 'trill':'Trill', 'tap': 'Tap or Flap',
+'fric': 'Fricative', 'latfric': 'Lateral Fricative','approx': 'Approximant', 'latapp': 'Lateral Approximant',
+
+'front': 'Front', 'frental': 'Near-front', 'central': 'Central', 
+'bentral': 'Near-back', 'back': 'Back',
+
+'close': 'Close', 'ccmid': 'Near-close', 'cmid': 'Close-mid', 'mid':' Mid', 
+'omid': 'Open-mid', 'oomid': 'Near-open', 'open': 'Open'
+
+}
+let descrip_dict = {'bilab': 'Articulated with both lips. Bilabial sounds may require partial or complete stopping of air flow.'
+, 'labdent': 'Sounds produced when the top teeth connect with the bottom lip. Requires stopping of air flow'
+, 'dent': 'Sounds produced when the tip of the tongue makes contact with the top teeth.'
+, 'alv': 'Sounds created by pressing the tip of the tongue against the alveolar ridge, the region of the mouth where the top teeth emerge from.'
+,'palv':  'Sounds expressed by the tip of the tongue touching past the alveolar ridge, close to the roof of the mouth. '
+, 'retro': ' Requires curling or straightening of the tongue into flat or concave shape. Sound is produced by keeping the shaped tongue tip near the post-alveolar region. '
+, 'pal': 'Sound produced by touching the middle of the tongue to the roof of the mouth (the hard palate). '
+, 'vel': 'Sounds expressed by pressing the back of the tongue to the soft palate, the back of the roof of the mouth.'
+, 'uvu': 'Touching the back of the tongue to the area past the roof of the mouth and into the throat. Further back than the soft palate, these sounds occur near the uvula/tonsils. '
+, 'phar': 'A non-English occurring sound made by touching the root of the tongue to the back of the throat, shaping the mouth similarly to a warm breath. '
+, 'glot': 'Sounds occurring fully in the throat, caused by a sudden start or stoppage of air flow.'
+,
+
+'plos':' A sudden release of air caused by built up pressure from a closed throat/mouth.'
+, 'nas': ' Sounds that resonate higher up in the nasal cavity rather than the mouth. '
+, 'trill':'A vibration created by holding the tongue/lips steady and keeping a consistent airflow. '
+, 'tap': 'A single movement of the muscles in the mouth that produces sound.'
+,'fric': ' Incomplete closure of the lips/mouth that leads to friction in the sound produced. '
+, 'latfric': ' A fricative that is located unevenly between the lips and tongue. '
+,'approx': 'A semi-stopped noise that is not small enough to cut out sound, resulting in a frictionless overall sound. '
+, 'latapp': ' An approximant that is relegated to a specific site of the mouth. The sound is usually focused to either one or both sides of the tongue. '
+
+,'front': 'Vowels produced by arching or curving the front of the tongue. The tongue is raised almost to the roof of the mouth.'
+, 'frental': ' Sounds expressed by curving the center of the tongue higher than natural, but not quite to the roof of the mouth.'
+, 'central': 'Vowels made by relaxing the lips and raising the tongue to a medium height. '
+, 'bentral': 'Vowels produced by raising the back part of the tongue and keeping the lips relaxed. '
+, 'back': 'Made by raising the back of the tongue and changing lip position. '
+,
+
+'close': 'The tongue is positioned near the top of the mouth, as close as possible without reducing sound. '
+, 'ccmid': 'The tongue is positioned almost touching the roof of the mouth, but not as close as it can be.'
+, 'cmid': 'Tongue positioned closer to the roof of the mouth, but opened a bit in comparison to closed vowels.'
+, 'mid':'Sounds made when the tongue is positioned in the middle of the mouth, between relaxed and fully raised. '
+, 'omid': ' Tongue positioned further open from the roof of the mouth, but not quite fully relaxed. '
+, 'oomid': 'Tongue almost relaxed all the way, with a bit of tension remaining in the mouth. '
+, 'open': 'Fully relaxed tongue, not touching any specific part of the mouth. '
+
+
+
+}
+
+
+let sound_desc_dict = {
+    'bilab_plos_unv': '<b>p</b>ur<b>p</b>le and <b>p</b>iece.',
+    'bilab_plos_v': '<b>b</b>arn, <b>b</b>ow and <b>b</b>ig.',
+    'alv_plos_unv': '<b>t</b>owel, <b>t</b>ime and <b>t</b>in.',
+    'alv_plos_v': '<b>d</b>o, <b>d</b>oes and <b>d</b>i<b>d</b>.',
+    'vel_plos_unv': '<b>c</b>apture, <b>c</b>row, and <b>k</b>ite.',
+    'vel_plos_v': '<b>g</b>rass, <b>g</b>own and <b>g</b>reen.',
+    'glot_plos_unv': "the pause in uh<b>-</b>oh and borrowed names from Hawaiian such as Hawai<b>'</b>i.",
+
+    'bilab_nas_v': '<b>m</b>o<b>m</b>, roo<b>m</b> and thu<b>mb</b>.',
+    'alv_nas_v': '<b>n</b>o, <b>n</b>ever and <b>kn</b>ow.',
+    'vel_nas_v': 'thi<b>ng</b>, ra<b>ng</b> and so<b>ng</b>.',
+    'alv_tap_v': 'mostly when a /t/ occurs between two vowels such as bu<b>tt</b>er, la<b>t</b>er and wa<b>t</b>er.',
+    'alv_approx_v': '<b>r</b>oad, <b>r</b>ive<b>r</b> and su<b>r</b>f.',
+    'pal_approx_v': '<b>y</b>ellow, <b>y</b>es and <b>u</b>se.',
+    'alv_latapp_v': '<b>l</b>abe<b>l</b>, <b>l</b>ove and <b>l</b>aw.',
+
+    'labdent_fric_unv': '<b>f</b>an, <b>f</b>ish and tou<b>gh</b>.',
+    'labdent_fric_v': '<b>v</b>iew, <b>v</b>iolin and <b>v</b>isit.',
+    'dent_fric_unv': '<b>th</b>ing, <b>th</b>imble and wi<b>th</b>.',
+    'dent_fric_v': '<b>th</b>ere, <b>th</b>en and o<b>th</b>er.',
+    'alv_fric_unv': '<b>s</b>ize, <b>s</b>uper and mi<b>ss</b>.',
+    'alv_fric_v': '<b>z</b>ap, <b>z</b>ig<b>z</b>ag and bu<b>zz</b>.',
+    'palv_fric_unv': 'ru<b>sh</b>, <b>sh</b>ave and <b>sh</b>ear.',
+    'palv_fric_v': 'vi<b>s</b>ion, delu<b>s</b>ion and ca<b>s</b>ual.',
+    'glot_fric_unv': '<b>h</b>ow, <b>wh</b>o and <b>h</b>ere.',
+
+    'front_close_unr': 'm<b>e</b>, s<b>ee</b> and s<b>ea</b>l.',
+    'frental_ccmid_unr': 'f<b>i</b>t, <b>i</b>n and l<b>i</b>t.',
+    'front_omid_unr': 'g<b>e</b>t, m<b>e</b>n and s<b>e</b>ll.',
+    'front_oomid_unr': '<b>a</b>pp, c<b>a</b>t and s<b>a</b>t.',
+    'back_omid_unr': 'b<b>u</b>t, c<b>u</b>p, and s<b>u</b>n.',
+    'central_mid_unr': 'the unstressed syllables of th<b>e</b> and sof<b>a</b>. This sound, also called a <i>schwa</i> frequently appears alongside ɹ in b<b>ir</b>d and col<b>or</b>.',
+    'back_open_r': 'b<b>o</b>t, fl<b>aw</b> and <b>o</b>n.',
+    'back_omid_r': 'c<b>o</b>rn, f<b>o</b>re and b<b>o</b>y.',
+    'bentral_ccmid_r': 'b<b>oo</b>k, h<b>oo</b>d and p<b>u</b>t.',
+    'back_close_r': 'g<b>oo</b>se, b<b>oo</b>t and l<b>oo</b>.',
+    'front_cmid_unr': 'pl<b>ay</b>, m<b>ay</b> and tr<b>ai</b>l, all of which this sound appears alongside /j/.',
+    'back_cmid_r': 'b<b>oa</b>t, wr<b>o</b>te and p<b>o</b>pe, all of which this sound appears alongside /w/.',
+    'front_open_unr': 'h<b>ow</b>, c<b>ow</b> and br<b>ow</b>n, all of which this sound appears alongside /w/.'
+}
+let z_dict = {
+    'r': 'Rounded', 'unr': 'Unrounded', 'v': 'Voiced', 'unv': 'Unvoiced'
+}
 // let vw = 1;
 // let vh = 1;
 // let svg_factor = 1;
@@ -33,7 +133,14 @@ let svg_factor;
 
 
 let cons_on = true;
-let graph_title = 'Consonants';
+let type = '';
+let row_title = '';
+let col_title = '';
+let row_desc = 'Click a Button to Learn More!'
+let col_desc = ''
+let sound_desc = ''
+let sound_label = ''
+let z_label = ''
 
 
 const circle_radius = 8;
@@ -51,14 +158,31 @@ function clicking(row, col, voic){
     $: vh = window.innerHeight;
     $: svg_factor = vw / 1023 * (2/3);
 
+    // updating descriptions
+    z_label = z_dict[voic]
+    col_title = name_dict[col]
+    col_desc = descrip_dict[col]
+    row_title = name_dict[row]
+    row_desc = descrip_dict[row]
+    sound_label = col + '_' + row + '_' + voic;
+    if (Object.keys(sound_desc_dict).includes(sound_label)){
+        sound_desc = 'English examples include ' + sound_desc_dict[sound_label]
+    } else{
+        sound_desc = 'There are no examples in English in a common dialect'
+    }
+    document.getElementById('descrip').innerHTML = sound_desc
+
+
 
     // checking to see if its a vowel or consonant
     if (['unr', 'r'].includes(voic)){
         console.log('vowel')
+        type = 'Vowel'
         fileName_aud = 'media/audio/vowels/' + row + '-' + col + '-' + voic + '.wav'
         fileName_img = 'media/images/vowels/viz-' + row + '-' + col + '.png'
     } else{
         console.log('cons')
+        type = 'Consonant'
         fileName_aud = 'media/audio/consonants/' + row + '-' + col + '-' + voic + '.wav';
         fileName_img = 'media/images/consonants/viz-' + col + '.png';
     }
@@ -156,8 +280,8 @@ let img_src = "media/images/consonants/viz-default.png";
             <td><button class = 'round' on:click = {() => clicking('plos','uvu', 'v')}>ɢ</button></td>
             <td> </td>
             <td> </td>
+            <td class = 'right'><button on:click = {() => clicking('plos','glot', 'unv')}>ʔ</button></td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('plos','glot', 'v')}>ʔ</button></td>
         </tr>
         <tr attr=''>
             <td class='rowlabel'> Nasal</td>
@@ -603,25 +727,24 @@ let img_src = "media/images/consonants/viz-default.png";
     <!-- Descriptive Text Boxes -->
         <div class='rowcol_text_box'> 
             <div class='text_box_title'>
-                Row Title
+                {row_title}
             </div>
             <div class='text_box_content'>
-                row description here
+                {row_desc}
             </div>
             <div class='text_box_title'>
-                Col Title
+                {col_title}
             </div>
             <div class='text_box_content'>
-                col description here
+                {col_desc}
             </div>
         </div>
         <div class='specific_text_box'> 
             <div class='text_box_title'>
-                Specific sound title
+                 {z_label} {col_title} {row_title} {type}
             </div>
-            <div class='text_box_content'>
-                sound description and examples here.
-                text boxes should stay the same size and have its own scroll bar for text overflow. like thisssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+            <div class='text_box_content' id = 'descrip'>
+                
             </div>
         </div>
 
