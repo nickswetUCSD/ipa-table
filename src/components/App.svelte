@@ -26,11 +26,11 @@ let name_dict = {'bilab': 'Bilabial', 'labdent': 'Labio-Dental',
 'plos':'Plosive', 'nas': 'Nasal', 'trill':'Trill', 'tap': 'Tap or Flap',
 'fric': 'Fricative', 'latfric': 'Lateral Fricative','approx': 'Approximant', 'latapp': 'Lateral Approximant',
 
-'front': 'Front', 'frental': 'Near-front', 'central': 'Central', 
-'bentral': 'Near-back', 'back': 'Back',
+'front': 'Front', 'frental': 'Near-Front', 'central': 'Central', 
+'bentral': 'Near-Back', 'back': 'Back',
 
-'close': 'Close', 'ccmid': 'Near-close', 'cmid': 'Close-mid', 'mid':' Mid', 
-'omid': 'Open-mid', 'oomid': 'Near-open', 'open': 'Open'
+'close': 'Close', 'ccmid': 'Near-Close', 'cmid': 'Close-Mid', 'mid':' Mid', 
+'omid': 'Open-Mid', 'oomid': 'Near-Open', 'open': 'Open'
 
 }
 let descrip_dict = {'bilab': 'Articulated with both lips. Bilabial sounds may require partial or complete stopping of air flow.'
@@ -152,24 +152,26 @@ let svg_factor;
 
 let cons_on = true;
 let type = '';
-let row_title = '';
+let row_title = '\n\n🢁 Click a Button to Learn More!';
 let col_title = '';
-let row_desc = 'Click a Button to Learn More!'
-let col_desc = ''
+let row_desc = '';
+let col_desc = '';
 let sound_desc = ''
-let sound_label = ''
+let sound_label = '\n\n🢁 Click a Button to Learn More!';
 let z_label = ''
 
-
+let placeholder = 'Insert IPA Here';
 let button_highlighter_content = null;
-let all_string_cons = 'pbtdʈɖcɟkgqɢʔmɱnɳɲŋɴʙrʀɾɽɸβfvθðszʃʒʂʐçʝxɣχʁħʕhɦɬɮʋɹɻjɰlɭʎʟ'
-let all_string_vowels = 'a';
+let all_string_cons = 'pbtdʈɖcɟkɡqɢʔmɱnɳɲŋɴʙrʀɾɽɸβfvθðszʃʒʂʐçʝxɣχʁħʕhɦɬɮʋɹɻjɰlɭʎʟ';
+let all_string_vowels = 'iyɨʉɯuɪʏʊeøɘɵɤoəɛœɜɞʌɔæɐaŒɑɒ';
 let all_string = all_string_cons;
 let all_symbols = all_string.split('')
 let loaded = 0;
 
+
 $: all_symbols = all_string.split('');
 $: if (true|button_highlighter_content) {updateHighlights()};
+$: if (cons_on) {updateHighlights()};
 
 function updateHighlights() {
     if (button_highlighter_content == '') {
@@ -193,12 +195,12 @@ function unhighlight_buttons() {
     for (let i = 0; i < all_symbols.length; i++) {
         unhighlight_button(all_symbols[i]);
     }
-    // console.log('unhighlight runs');
 }
 
 function highlight_buttons() {
     if (button_highlighter_content != '') {
-        let symbols = button_highlighter_content.split('');
+        let symbols = button_highlighter_content.replace('g','ɡ').split('');
+        
         console.log(symbols)
         for (let i = 0 ; i < symbols.length; i++) {
             if (all_symbols.includes(symbols[i])) {
@@ -206,7 +208,6 @@ function highlight_buttons() {
             }
         }
     }
-    // console.log('highlight runs');
 }
 
 function unhighlight_button(symbol){
@@ -220,7 +221,7 @@ function unhighlight_button(symbol){
 function highlight_button(symbol){
     let symbol_text = 'symbol_'.concat(symbol)
     if (document.getElementById(symbol_text)) {
-        document.getElementById(symbol_text).style.backgroundColor = 'green';
+        document.getElementById(symbol_text).style.backgroundColor = '#d55959';
         document.getElementById(symbol_text).style.transition = '0s';
         document.getElementById(symbol_text).style.opacity = '1'
     }
@@ -279,14 +280,6 @@ function clicking(row, col, voic){
     // console.log(row, col, voic)
 }
 
-// function zoomUpdate() {
-//     vw = window.innerWidth;
-//     vh = window.innerHeight;
-//     svg_factor = vw / 1023;
-
-//     console.log(vw);
-// }
-
 
 function audioPlay(fn){
     sound = document.getElementById('cons');
@@ -315,7 +308,6 @@ function setCons(n){
         r.style.setProperty('--c_opacity', 0.25);
         r.style.setProperty('--v_opacity', 1);
     }
-
 }
 
 let img_src = "media/images/consonants/viz-default.png";
@@ -328,11 +320,11 @@ let img_src = "media/images/consonants/viz-default.png";
 
 <body>
     <!-- Button Highlighter-->
-    <input bind:value = {button_highlighter_content} class='button_highlighter' type="text">
+    <input bind:value = {button_highlighter_content} placeholder = {placeholder} on:click = {() => updateHighlights()} class='button_highlighter' type="text">
 
 
-    <button class= 'c-switch' on:click = {() =>setCons(true) } > Consonants</button>
-    <button class= 'v-switch' on:click = {() =>setCons(false)} > Vowels</button>
+    <button class= 'c-switch' on:click = {() =>setCons(true)} on:click = {() => updateHighlights()} > Consonants</button>
+    <button class= 'v-switch' on:click = {() =>setCons(false)} on:click = {() => updateHighlights()} > Vowels</button>
     <!-- consonant table -->
     {#if cons_on}
     <table class="table-c">
@@ -405,8 +397,8 @@ let img_src = "media/images/consonants/viz-default.png";
                 </button>
             </td>
             <td>
-                <button class = 'round' on:click = {() => clicking('plos','vel', 'v')} id='symbol_g'>
-                    g
+                <button class = 'round' on:click = {() => clicking('plos','vel', 'v')} id='symbol_ɡ'>
+                    ɡ
                 </button>
             </td>
             <td>
@@ -796,24 +788,48 @@ let img_src = "media/images/consonants/viz-default.png";
         </tr>
         <tr attr='close'>
             <td class='rowlabel'> Close </td>
-            <td col = 1><button on:click = {() => clicking('close','front', 'unr')}>i</button></td>
-            <td><button class = 'round' on:click = {() => clicking('close','front', 'r')}>y</button></td>
+            <td col = 1>
+                <button on:click = {() => clicking('close','front', 'unr')} id='symbol_i'>
+                    i
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('close','front', 'r')} id='symbol_y'>
+                    y
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td ></td>
             <td></td>
-            <td class = 'right'><button on:click = {() => clicking('close','central', 'unr')}>ɨ</button></td>
-            <td><button class = 'round' on:click = {() => clicking('close','central', 'r')}>ʉ</button> </td>
+            <td class = 'right'>
+                <button on:click = {() => clicking('close','central', 'unr')} id='symbol_ɨ'>
+                    ɨ
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('close','central', 'r')} id='symbol_ʉ'>
+                    ʉ
+                </button>
+            </td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td> </td>
-            <td> <button on:click = {() => clicking('close','back', 'unr')}>ɯ</button></td>
-            <td><button class = 'round' on:click = {() => clicking('close','back', 'r')}>u</button></td>
+            <td></td>
+            <td>
+                <button on:click = {() => clicking('close','back', 'unr')} id='symbol_ɯ'>
+                    ɯ
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('close','back', 'r')} id='symbol_u'>
+                    u
+                </button>
+            </td>
         </tr>
         <tr attr='ccmid'>
             <td class='rowlabel'> </td>
@@ -821,8 +837,16 @@ let img_src = "media/images/consonants/viz-default.png";
             <td></td>
             <td> </td>
             <td></td>
-            <td> <button on:click = {() => clicking('ccmid','frental', 'unr')}> ɪ </button></td>
-            <td> <button class = 'round'  on:click = {() => clicking('ccmid','frental', 'r')}>ʏ</button></td>
+            <td> 
+                <button on:click = {() => clicking('ccmid','frental', 'unr')} id='symbol_ɪ'>
+                     ɪ 
+                </button>
+            </td>
+            <td> 
+                <button class = 'round'  on:click = {() => clicking('ccmid','frental', 'r')} id='symbol_ʏ'>
+                    ʏ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -831,7 +855,11 @@ let img_src = "media/images/consonants/viz-default.png";
             <td></td>
             <td> </td>
             <td></td>
-            <td><button class = 'round' on:click = {() => clicking('ccmid','bentral', 'r')}> ʊ</button> </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('ccmid','bentral', 'r')} id='symbol_ʊ'>
+                    ʊ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -840,22 +868,46 @@ let img_src = "media/images/consonants/viz-default.png";
             <td class='rowlabel'> Close-Mid </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('cmid','front', 'unr')}>e</button></td>
-            <td> <button class = 'round'  on:click = {() => clicking('cmid','front', 'r')}>ø</button></td>
+            <td> 
+                <button on:click = {() => clicking('cmid','front', 'unr')} id='symbol_e'>
+                    e
+                </button>
+            </td>
+            <td> 
+                <button class = 'round'  on:click = {() => clicking('cmid','front', 'r')} id='symbol_ø'>
+                    ø
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('cmid','central', 'unr')}>ɘ </button></td>
-            <td> <button class = 'round'  on:click = {() => clicking('cmid','central', 'r')}>ɵ</button></td>
+            <td> 
+                <button on:click = {() => clicking('cmid','central', 'unr')} id='symbol_ɘ'>
+                    ɘ 
+                </button>
+            </td>
+            <td> 
+                <button class = 'round'  on:click = {() => clicking('cmid','central', 'r')} id='symbol_ɵ'>
+                    ɵ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('cmid','back', 'unr')}> ɤ </button></td>
-            <td> <button class = 'round' on:click = {() => clicking('cmid','back', 'r')}> o </button></td>
+            <td> 
+                <button on:click = {() => clicking('cmid','back', 'unr')} id='symbol_ɤ'>
+                     ɤ 
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('cmid','back', 'r')} id='symbol_o'> 
+                    o 
+                </button>
+            </td>
         </tr>
         <tr attr = 'mid'>
             <td class='rowlabel'>  </td>
@@ -869,7 +921,11 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('mid','central', 'unr')}>ə </button></td>
+            <td> 
+                <button on:click = {() => clicking('mid','central', 'unr')} id='symbol_ə'>
+                    ə 
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -884,20 +940,44 @@ let img_src = "media/images/consonants/viz-default.png";
             <td></td>
             <td> </td>
             <td> </td>
-            <td class = 'right'> <button on:click = {() => clicking('omid','front', 'unr')}>ɛ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('omid','front', 'r')}>œ</button></td>
+            <td class = 'right'>
+                 <button on:click = {() => clicking('omid','front', 'unr')} id='symbol_ɛ'>
+                    ɛ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('omid','front', 'r')} id='symbol_œ'>
+                    œ
+                </button>
+            </td>
             <td ></td>
             <td> </td>
             <td ></td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('omid','central', 'unr')}>ɜ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('omid','central', 'r')}>ɞ</button></td>
+            <td> 
+                <button on:click = {() => clicking('omid','central', 'unr')} id='symbol_ɜ'>
+                    ɜ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('omid','central', 'r')} id='symbol_ɞ'>
+                    ɞ
+                </button>
+            </td>
             <td></td>
             <td> </td>
             <td> </td>
-            <td><button on:click = {() => clicking('omid','back', 'unr')}> ʌ</button></td>
-            <td><button class = 'round' on:click = {() => clicking('omid','back', 'r')}> ɔ</button></td>
+            <td>
+                <button on:click = {() => clicking('omid','back', 'unr')} id='symbol_ʌ'>
+                     ʌ
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('omid','back', 'r')} id='symbol_ɔ'>
+                     ɔ
+                </button>
+            </td>
         </tr>
         <tr>
             <td class='rowlabel'> </td>
@@ -907,14 +987,22 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td></td>
             <td> </td>
-            <td> <button on:click = {() => clicking('oomid','front', 'unr')}>æ</button></td>
+            <td> 
+                <button on:click = {() => clicking('oomid','front', 'unr')} id='symbol_æ'>
+                    æ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('oomid','central', 'unr')}>ɐ</button></td>
+            <td> 
+                <button on:click = {() => clicking('oomid','central', 'unr')} id='symbol_ɐ'>
+                    ɐ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -929,8 +1017,16 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button on:click = {() => clicking('open','front', 'unr')}>a</button></td>
-            <td><button class = 'round' on:click = {() => clicking('open','front', 'r')}>Œ</button> </td>
+            <td> 
+                <button on:click = {() => clicking('open','front', 'unr')} id='symbol_a'>
+                    a
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('open','front', 'r')} id='symbol_Œ'>
+                    Œ
+                </button>
+             </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -938,8 +1034,16 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> &nbsp &nbsp &nbsp &nbsp &nbsp</td>
-            <td> <button on:click = {() => clicking('open','back', 'unr')}>ɑ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('open','back', 'r')}>ɒ</button></td>
+            <td> 
+                <button on:click = {() => clicking('open','back', 'unr')} id='symbol_ɑ'>
+                    ɑ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('open','back', 'r')} id='symbol_ɒ'>
+                    ɒ
+                </button>
+            </td>
         </tr>
     </table>
     {/if}
@@ -1042,9 +1146,18 @@ let img_src = "media/images/consonants/viz-default.png";
 
 
 
-
-
         <!-- VOWELS -->
+        {#if last_clicked_voic == 'r'}
+        <g class='round_lips'>
+            <circle r={circle_radius * 1.5 * svg_factor} cx='{40 * svg_factor}' cy='{135 * svg_factor}' fill=none stroke-width="0.6vh" stroke=black/>
+        </g>
+        {/if}
+        {#if last_clicked_voic == 'unr'}
+        <g class='unround_lips' stroke=black stroke-width="0.6vh">
+            <path d='M{35 * svg_factor},{140 * svg_factor}H{40 * svg_factor},{60* svg_factor}'></path>
+            <path d='M{35 * svg_factor},{125 * svg_factor}H{40 * svg_factor},{60* svg_factor}'></path>
+        </g>
+        {/if}
     </svg>
 
     <!-- Descriptive Text Boxes -->
@@ -1078,7 +1191,7 @@ let img_src = "media/images/consonants/viz-default.png";
 
     :root{
         --section-size: 200vh;
-        --svgleft: 68vw;
+        --svgleft: 65vw;
         --svgtop: 1254vh;
         --h1size: 4vh;
         --textsize: 2vh;
@@ -1100,7 +1213,36 @@ let img_src = "media/images/consonants/viz-default.png";
         position:absolute;
         top: calc(5 * var(--section-size) + 105vh);
         left: 77.5vw;
-        width: 9vw; 
+        width: 8.5vw;
+        
+        font-weight: bold;
+        font-size: 2vh;
+        border-style: none;
+        border-width: 0.5vh;
+        border-radius: 0.5vh;
+        padding-left: 0.5vw;
+        padding-right: 0.5vw;
+        padding-top: 0.5vh;
+        padding-bottom: 0.5vh;
+        transition: 0.3s;
+    }
+
+    .button_highlighter:hover {
+        position:absolute;
+        top: calc(5 * var(--section-size) + 105vh);
+        left: 77.5vw;
+        width: 8.5vw;
+        
+        font-weight: bold;
+        color: #d55959;
+        outline-color: #d55959;
+        outline-width: 0.5vh;
+        outline-style: solid;
+        transition: 0.1s;
+    }
+
+    ::placeholder {
+
     }
     button {
         padding-left: 0.5vw;
@@ -1248,7 +1390,7 @@ let img_src = "media/images/consonants/viz-default.png";
         margin-bottom: 0.5vh;
         white-space: nowrap;
         border: 0.15vw solid;
-        border-color: rgba(0,255,255,0.2);
+        border-color: rgba(213, 89, 89, 0.2);
         border-radius: 0.5vw;
 
         /* border-collapse: collapse; */
@@ -1292,33 +1434,71 @@ let img_src = "media/images/consonants/viz-default.png";
 
     .rowcol_text_box {
         position: absolute;
-        top: calc(5 * var(--section-size) + 164vh);
-        left: 22vw;
+        top: calc(5 * var(--section-size) + 164.5vh);
+        left: 10vw;
         font-size: 2.5vh;
 
         background-color: #efc51c;
-        width: 20vw;
+        width: 25vw;
         height: 33vh;
         overflow-wrap: break-word;
         overflow-y: scroll;
+        white-space: pre-wrap;
+
+    }
+
+    /* these three are for the scrollbar */
+    .rowcol_text_box::-webkit-scrollbar {
+        width: 1vw;
+    }
+        
+    .rowcol_text_box::-webkit-scrollbar-track {
+        border-radius: 8px;
+        background-color: #e7e7e7;
+        border: 1px solid #cacaca;
+        visibility: hidden;
+    }
+        
+    .rowcol_text_box::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: #d55959;
     }
 
     .specific_text_box {
         position: absolute;
-        top: calc(5 * var(--section-size) + 164vh);
-        left: 44vw;
-        font-size: 2.5vh;
+        top: calc(5 * var(--section-size) + 164.5vh);
+        left: 37vw;
+        font-size: 3vh;
 
         background-color: #efc51c;
-        width: 20vw;
+        width: 25vw;
         height: 33vh;
         overflow-wrap: break-word;
         overflow-y: scroll;
+        white-space: pre-wrap;
+    }
+
+     /* these three are for the scrollbar */
+    .specific_text_box::-webkit-scrollbar {
+        width: 1vw;
+    }
+        
+    .specific_text_box::-webkit-scrollbar-track {
+        border-radius: 8px;
+        background-color: #e7e7e7;
+        border: 1px solid #cacaca;
+        visibility: hidden;
+    }
+        
+    .specific_text_box::-webkit-scrollbar-thumb {
+        border-radius: 8px;
+        background-color: #d55959;
     }
 
     .text_box_title {
         font-size: 3.5vh;
         font-weight: bold;
+        margin-bottom: -0.5vh;
     }
 
     .text_box_content {
@@ -1377,6 +1557,12 @@ let img_src = "media/images/consonants/viz-default.png";
     }
     .latapp {
         animation: approxAnimation 1s infinite linear;
+    }
+    .round_lips {
+        animation: pulseAnimation 1s infinite ease-in-out;
+    }
+    .unround_lips {
+        animation: pulseAnimation 1s infinite ease-in-out;
     }
 
     @keyframes plosAnimation {
@@ -1548,6 +1734,24 @@ let img_src = "media/images/consonants/viz-default.png";
         }
         100% {
             opacity:0.6;
+        }
+    }
+
+    @keyframes pulseAnimation {
+        0% {
+            transform: scale(1)
+        }
+        25% {
+            
+        }
+        50% {
+            transform: scale(1.2)
+        }
+        75% {
+            
+        }
+        100% {
+            transform: scale(1)
         }
     }
 
