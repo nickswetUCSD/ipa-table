@@ -114,7 +114,9 @@ let sound_desc_dict = {
     'back_close_r': 'g<b>oo</b>se, b<b>oo</b>t and l<b>oo</b>.',
     'front_cmid_unr': 'pl<b>ay</b>, m<b>ay</b> and tr<b>ai</b>l, all of which this sound appears alongside /j/.',
     'back_cmid_r': 'b<b>oa</b>t, wr<b>o</b>te and p<b>o</b>pe, all of which this sound appears alongside /w/.',
-    'front_open_unr': 'h<b>ow</b>, c<b>ow</b> and br<b>ow</b>n, all of which this sound appears alongside /w/.'
+    'front_open_unr': 'h<b>ow</b>, c<b>ow</b> and br<b>ow</b>n, all of which this sound appears alongside /w/.',
+    'labdent_nas_v': 'sy<b>m</b>phony or e<b>m</b>phatic, always appearing before /f/ or /v/.',
+    'bilab_fric_v': 'up<b>v</b>ote, always appearing after a bilabial sound.'
 }
 
 let foreign_desc_dict = {
@@ -132,7 +134,44 @@ let foreign_desc_dict = {
     'central_omid_r': '. This sound is found in various other languages including Afrikaans, Irish and Navajo',
     'central_oomid_unr': ' but can be found in some unique regional English dialects. This sound is also found in various languages such as Korean, Bengali, Lithuanian, Vietnamese and German.',
     'back_open_unr': ', but can be found in certain English dialects such as British pronunciations of p<b>a</b>lm or h<b>o</b>t. This sound is also found in various languages such as Dutch, Mandarin and Finnish.',
-    'front_open_r': '. This sound is found in very few other dialects of languages including certain speakers of Danish, and certain Stockholm-variants of Swedish.'
+    'front_open_r': '. This sound is found in very few other dialects of languages including certain speakers of Danish, and certain Stockholm-variants of Swedish.',
+    'retro_plos_unv':', but can be found in various dialects for t. This sound is also commonly found in other languages such as Nepali, Punjabi and Bengali',
+    'retro_plos_v':', but can be found in various dialects for d. This sound is also commonly found in other languages such as Nepali, Punjabi and Bengali',
+    'pal_plos_unv': '. This sound is found in various other languages including Czech and Hungarian.',
+    'pal_plos_v': '. This sound is found in various other languages including Czech and Hungarian.',
+    'uvu_plos_unv': ', but can be found in various dialects, such as Australian, in words like <b>c</b>aught. This sound is also found in various languages such as Arabic, Hungarian and Uzbek.',
+    'uvu_plos_v': ', but can be found in various dialects, such as Australian, in words like <b>g</b>ot. This sound is also found in various languages such as Arabic, Mongolian and Turkmen.',
+    'retro_nas_v': '. This sound is found in various other languages including Hindi, Swedish and Vietnamese.',
+    'pal_nas_v': '. This sound is found in various other languages including Czech, Italian and Polish.',
+    'uvu_nas_v': '. This sound is found in various other languages including Turkmen, Armenian and Georgian',
+    
+    'bilab_trill_v': '. This sound is found in a handful of languages, such as Medumba and Ngwe in Cameroon and Pirahã in Brazil.',
+    'alv_trill_v': '. This sound is found in various other languages, for example pe<b>rr</b>o in Spanish.',
+    'retro_trill_v': '. This sound is found in a handful of dialects, such as the Belgian dialect of French or most dialects of German',
+    'retro_tap_v': '. This sound is found in various other languages including Bengali, Nepali and Punjabi.',
+    'bilab_fric_unv': '. This sound is found in various other languages including Korean, Turkmen and Bengali.',
+    'retro_fric_unv': '. This sound is found in various other languages including Nepali, Norwegian and Ukrainian',
+    'retro_fric_v': '. This sound is found in various other languages including Nepali, Norwegian and Ukrainian',
+    'pal_fric_unv': '. This sound is found in various other languages including Estonian, Finnish and Korean',
+    'pal_fric_v': '. This sound is found in various other languages including Estonian, Finnish and Korean',
+    'vel_fric_unv': '. This sound is found in various other languages including Greek, Russian, Vietnamese',
+    'vel_fric_v': '. This sound is found in various other languages including Greek, Russian, Vietnamese',
+    'vel_fric_unv': '. This sound is found in various other languages including Arabic, Armenian and Hebrew',
+    'vel_fric_v': '. This sound is found in various other languages including Arabic, Armenian and Hebrew',
+    'phar_fric_unv': '. This sound is found in various other languages including Arabic and Hebrew',
+    'phar_fric_v': '. This sound is found in various other languages including Arabic and Hebrew',
+    'glot_fric_v': ', but can be found in various dialects for h. This sound is also commonly found in other languages such as Danish, Finnish and Slovak.',
+    
+    'alv_latfric_unv': '. This sound is found in various other languages including Chickasaw and Navajo',
+    'alv_latfric_v': '. This sound is found in a handful of other languages including Arabic, Mongolian and Zulu',
+    'labdent_approx_v': ', but can be found in various dialects for v or r.. This sound is also commonly found in other languages such as Finnish, Lao and Russian.',
+    'retro_approx_v': ', but can be found in various dialects for r.. This sound is also commonly found in other languages such as Mandarin or Faroese. ',
+    'vel_approx_v': ', but can be found in various dialects for v or r.. This sound is also commonly found in other languages such as Finnish, Lao and Russian.',
+    'labdent_approx_v': '. This sound is found in various other languages, including Cherokee, Korean and Spanish',
+    'labdent_approx_v': ', but can be found in various dialects for v or r.. This sound is also commonly found in other languages such as Finnish, Lao and Russian.',
+    'retro_latapp_v': '. This sound is found in various other languages, including French, Korean and Swedish.',
+    'pal_latapp_v': ', but can be found in various dialects in words like mi<b>ll</b>ion.  This sound is also commonly found in other languages such as Greek, Italian, Slovak. ',
+    'vel_latapp_v': ', but can be found in various dialects such as Southern, in words like midd<b>l</b>e.. This sound is also commonly found in a couple languages in Oceanic islands.'
 }
 let z_dict = {
     'r': 'Rounded', 'unr': 'Unrounded', 'v': 'Voiced', 'unv': 'Unvoiced'
