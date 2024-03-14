@@ -161,6 +161,73 @@ let sound_label = ''
 let z_label = ''
 
 
+let button_highlighter_content = null;
+let all_string_cons = 'pbtdʈɖcɟkgqɢʔmɱnɳɲŋɴʙrʀɾɽɸβfvθðszʃʒʂʐçʝxɣχʁħʕhɦɬɮʋɹɻjɰlɭʎʟ'
+let all_string_vowels = 'a';
+let all_string = all_string_cons;
+let all_symbols = all_string.split('')
+let loaded = 0;
+
+$: all_symbols = all_string.split('');
+$: if (true|button_highlighter_content) {updateHighlights()};
+
+function updateHighlights() {
+    if (button_highlighter_content == '') {
+        unhighlight_buttons();
+        for (let i = 0; i < all_symbols.length; i++) {
+            let symbol_text = 'symbol_'.concat(all_symbols[i]);
+            if (document.getElementById(symbol_text)) {
+                document.getElementById(symbol_text).style.opacity = '1'
+            }
+
+        }
+    } else if (button_highlighter_content != null){
+        unhighlight_buttons();
+        highlight_buttons();
+    } else {
+
+    }
+}
+
+function unhighlight_buttons() {
+    for (let i = 0; i < all_symbols.length; i++) {
+        unhighlight_button(all_symbols[i]);
+    }
+    // console.log('unhighlight runs');
+}
+
+function highlight_buttons() {
+    if (button_highlighter_content != '') {
+        let symbols = button_highlighter_content.split('');
+        console.log(symbols)
+        for (let i = 0 ; i < symbols.length; i++) {
+            if (all_symbols.includes(symbols[i])) {
+                highlight_button(symbols[i]);
+            }
+        }
+    }
+    // console.log('highlight runs');
+}
+
+function unhighlight_button(symbol){
+    let symbol_text = 'symbol_'.concat(symbol);
+    if (document.getElementById(symbol_text)) {
+        document.getElementById(symbol_text).style.backgroundColor = '';document.getElementById(symbol_text).style.transition = '';
+        document.getElementById(symbol_text).style.opacity = '0.1';
+    }
+}
+
+function highlight_button(symbol){
+    let symbol_text = 'symbol_'.concat(symbol)
+    if (document.getElementById(symbol_text)) {
+        document.getElementById(symbol_text).style.backgroundColor = 'green';
+        document.getElementById(symbol_text).style.transition = '0s';
+        document.getElementById(symbol_text).style.opacity = '1'
+    }
+}
+
+
+
 const circle_radius = 8;
 const cols_with_lats = ['alv','retro','pal','vel'];
 
@@ -238,10 +305,12 @@ function setCons(n){
     cons_on = n;
     var r = document.querySelector(':root');
     if (n) {
+        all_string = all_string_cons;
         button_does_what = 'whether a consonant is voiced or not.';
         r.style.setProperty('--c_opacity', 1);
         r.style.setProperty('--v_opacity', 0.25);
     } else {
+        all_string = all_string_vowels;
         button_does_what = 'whether a vowel is rounded or not.';
         r.style.setProperty('--c_opacity', 0.25);
         r.style.setProperty('--v_opacity', 1);
@@ -256,7 +325,12 @@ let img_src = "media/images/consonants/viz-default.png";
 <!-- TABLE -->
 <audio id= 'cons'></audio>
 
+
 <body>
+    <!-- Button Highlighter-->
+    <input bind:value = {button_highlighter_content} class='button_highlighter' type="text">
+
+
     <button class= 'c-switch' on:click = {() =>setCons(true) } > Consonants</button>
     <button class= 'v-switch' on:click = {() =>setCons(false)} > Vowels</button>
     <!-- consonant table -->
@@ -278,49 +352,130 @@ let img_src = "media/images/consonants/viz-default.png";
         </tr>
         <tr attr='plos'>
             <td class='rowlabel'> Plosive </td>
-            <td col = 1><button on:click = {() => clicking('plos','bilab', 'unv')}>p</button></td>
-            <td><button class = 'round' on:click = {() => clicking('plos','bilab', 'v')}>b</button></td>
+            <td col = 1>
+                <button on:click = {() => clicking('plos','bilab', 'unv')} id='symbol_p'>
+                    p
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('plos','bilab', 'v')} id='symbol_b'>
+                    b
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td class = 'right'><button on:click = {() => clicking('plos','alv', 'unv')}>t</button></td>
-            <td><button class = 'round' on:click = {() => clicking('plos','alv', 'v')}>d</button> </td>
+            <td class = 'right'>
+                <button on:click = {() => clicking('plos','alv', 'unv')} id='symbol_t'>
+                    t
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('plos','alv', 'v')} id='symbol_d'>
+                    d
+                </button> 
+            </td>
             <td> </td>
             <td> </td>
-            <td class = 'right'><button on:click = {() => clicking('plos','retro', 'unv')}>ʈ</button></td>
-            <td><button class = 'round' on:click = {() => clicking('plos','retro', 'v')}>ɖ</button></td>
-            <td><button on:click = {() => clicking('plos','pal', 'unv')}>c</button></td>
-            <td><button class = 'round' on:click = {() => clicking('plos','pal', 'v')}>ɟ</button></td>
-            <td><button on:click = {() => clicking('plos','vel', 'unv')}>k</button></td>
-            <td><button class = 'round' on:click = {() => clicking('plos','vel', 'v')}>g</button></td>
-            <td><button on:click = {() => clicking('plos','uvu', 'unv')}>q</button></td>
-            <td><button class = 'round' on:click = {() => clicking('plos','uvu', 'v')}>ɢ</button></td>
+            <td class = 'right'>
+                <button on:click = {() => clicking('plos','retro', 'unv')} id='symbol_ʈ'>
+                    ʈ
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('plos','retro', 'v')} id='symbol_ɖ'>
+                    ɖ
+                </button>
+            </td>
+            <td>
+                <button on:click = {() => clicking('plos','pal', 'unv')} id='symbol_c'>
+                    c
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('plos','pal', 'v')} id='symbol_ɟ'>
+                    ɟ
+                </button>
+            </td>
+            <td>
+                <button on:click = {() => clicking('plos','vel', 'unv')
+                } id='symbol_k'>
+                    k
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('plos','vel', 'v')} id='symbol_g'>
+                    g
+                </button>
+            </td>
+            <td>
+                <button on:click = {() => clicking('plos','uvu', 'unv')} id='symbol_q'>
+                    q
+                </button>
+            </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('plos','uvu', 'v')} id='symbol_ɢ'>
+                    ɢ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
-            <td class = 'right'><button on:click = {() => clicking('plos','glot', 'unv')}>ʔ</button></td>
+            <td class = 'right'>
+                <button on:click = {() => clicking('plos','glot', 'unv')} id='symbol_ʔ'>
+                    ʔ
+                </button>
+            </td>
             <td> </td>
         </tr>
         <tr attr=''>
             <td class='rowlabel'> Nasal</td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('nas','bilab', 'v')}> m </button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('nas','bilab', 'v')} id='symbol_m'>
+                     m 
+                    </button>
+                </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('nas','labdent', 'v')}>ɱ </button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('nas','labdent', 'v')} id='symbol_ɱ'>
+                    ɱ 
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('nas','alv', 'v')}> n </button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('nas','alv', 'v')} id='symbol_n'> 
+                    n
+                 </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('nas','retro', 'v')}> ɳ </button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('nas','retro', 'v')} id='symbol_ɳ'> 
+                    ɳ 
+                </button>
+            </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('nas','pal', 'v')}>ɲ </button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('nas','pal', 'v')} id='symbol_ɲ'>
+                    ɲ 
+                </button>
+            </td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('nas','vel', 'v')}> ŋ</button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('nas','vel', 'v')} id='symbol_ŋ'> 
+                    ŋ
+                </button>
+            </td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('nas','uvu', 'v')}> ɴ</button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('nas','uvu', 'v')} id='symbol_ɴ'> 
+                ɴ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -329,13 +484,19 @@ let img_src = "media/images/consonants/viz-default.png";
         <tr>
             <td class='rowlabel'> Trill</td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('trill','bilab', 'v')}>ʙ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('trill','bilab', 'v')} id='symbol_ʙ'>
+                    ʙ
+                </button></td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('trill','alv', 'v')}>r</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('trill','alv', 'v')} id='symbol_r'>
+                    r
+                </button></td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -345,7 +506,11 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('trill','uvu', 'v')}> ʀ </button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('trill','uvu', 'v')} id='symbol_ʀ'>
+                     ʀ 
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -360,11 +525,19 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td><button class = 'round' on:click = {() => clicking('tap','alv', 'v')}> ɾ </button></td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('tap','alv', 'v')} id='symbol_ɾ'>
+                     ɾ 
+                    </button>
+                </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('tap','retro', 'v')}>ɽ </button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('tap','retro', 'v')} id='symbol_ɽ'>
+                    ɽ 
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -378,28 +551,116 @@ let img_src = "media/images/consonants/viz-default.png";
         </tr>
         <tr>
             <td class='rowlabel'> Fricative </td>
-            <td> <button on:click = {() => clicking('fric','bilab', 'unv')}>ɸ </button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','bilab', 'v')}> β</button></td>
-            <td class = 'right'> <button on:click = {() => clicking('fric','labdent', 'unv')}>f</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','labdent', 'v')}>v</button></td>
-            <td> <button on:click = {() => clicking('fric','dent', 'unv')}>θ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','dent', 'v')}>ð</button></td>
-            <td class = 'right'> <button on:click = {() => clicking('fric','alv', 'unv')}>s</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','alv', 'v')}>z</button></td>
-            <td class ='right'> <button on:click = {() => clicking('fric','palv', 'unv')}>ʃ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','palv', 'v')}>ʒ</button></td>
-            <td class = 'right'> <button on:click = {() => clicking('fric','retro', 'unv')}>ʂ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','retro', 'v')}>ʐ</button></td>
-            <td> <button on:click = {() => clicking('fric','pal', 'unv')}>ç</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','pal', 'v')}>ʝ</button></td>
-            <td> <button on:click = {() => clicking('fric','vel', 'unv')}>x</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','vel', 'v')}>ɣ</button></td>
-            <td> <button on:click = {() => clicking('fric','uvu', 'unv')}>χ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','uvu', 'v')}>ʁ</button></td>
-            <td class = 'right'> <button on:click = {() => clicking('fric','phar', 'unv')}>ħ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('fric','phar', 'v')}>ʕ</button></td>
-            <td><button on:click = {() => clicking('fric','glot', 'unv')}> h</button></td>
-            <td><button class = 'round' on:click = {() => clicking('fric','glot', 'v')}> ɦ</button></td>
+            <td> 
+                <button on:click = {() => clicking('fric','bilab', 'unv')} id='symbol_ɸ'>
+                    ɸ 
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','bilab', 'v')} id='symbol_β'>
+                     β
+                    </button>
+                </td>
+            <td class = 'right'> 
+                <button on:click = {() => clicking('fric','labdent', 'unv')} id='symbol_f'>
+                    f
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','labdent', 'v')} id='symbol_v'>
+                    v
+                </button>
+            </td>
+            <td> 
+                <button on:click = {() => clicking('fric','dent', 'unv')} id='symbol_θ'>
+                    θ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','dent', 'v')} id='symbol_ð'>
+                    ð
+                </button>
+            </td>
+            <td class = 'right'> 
+                <button on:click = {() => clicking('fric','alv', 'unv')} id = 'symbol_s'>
+                    s
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','alv', 'v')} id='symbol_z'>
+                    z
+                </button>
+            </td>
+            <td class ='right'> 
+                <button on:click = {() => clicking('fric','palv', 'unv')} id='symbol_ʃ'>
+                    ʃ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','palv', 'v')} id='symbol_ʒ'>
+                    ʒ
+                </button>
+            </td>
+            <td class = 'right'> 
+                <button on:click = {() => clicking('fric','retro', 'unv')} id='symbol_ʂ'>
+                    ʂ
+                </button>
+            </td>
+            <td>
+                 <button class = 'round' on:click = {() => clicking('fric','retro', 'v')} id='symbol_ʐ'>
+                    ʐ
+                </button>
+            </td>
+            <td> 
+                <button on:click = {() => clicking('fric','pal', 'unv')} id = 'symbol_ç'>
+                    ç
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','pal', 'v')} id='symbol_ʝ'>
+                    ʝ
+                </button>
+            </td>
+            <td> 
+                <button on:click = {() => clicking('fric','vel', 'unv')} id = 'symbol_x'>
+                    x
+                </button>
+            </td>
+            <td>
+                 <button class = 'round' on:click = {() => clicking('fric','vel', 'v')} id='symbol_ɣ'>
+                    ɣ
+                </button>
+            </td>
+            <td> 
+                <button on:click = {() => clicking('fric','uvu', 'unv')} id='symbol_χ'>
+                    χ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','uvu', 'v')} id='symbol_ʁ'>
+                    ʁ
+                </button>
+            </td>
+            <td class = 'right'> 
+                <button on:click = {() => clicking('fric','phar', 'unv')} id='symbol_ħ'>
+                    ħ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('fric','phar', 'v')} id='symbol_ʕ'>
+                    ʕ
+                </button>
+            </td>
+            <td>
+                <button on:click = {() => clicking('fric','glot', 'unv')} id='symbol_h'>
+                     h
+                    </button>
+                </td>
+            <td>
+                <button class = 'round' on:click = {() => clicking('fric','glot', 'v')} id='symbol_ɦ'>
+                     ɦ
+                </button>
+            </td>
         </tr>
         <tr>
             <td class='rowlabel'> Lateral Fricative</td>
@@ -409,8 +670,16 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td class = 'right'> <button on:click = {() => clicking('latfric','alv', 'unv')}>ɬ</button></td>
-            <td> <button class = 'round' on:click = {() => clicking('latfric','alv', 'v')}> ɮ</button></td>
+            <td class = 'right'>
+                 <button on:click = {() => clicking('latfric','alv', 'unv')} id='symbol_ɬ'>
+                    ɬ
+                </button>
+            </td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('latfric','alv', 'v')} id='symbol_ɮ'>
+                 ɮ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -431,19 +700,39 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('approx','labdent', 'v')}>ʋ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('approx','labdent', 'v')} id='symbol_ʋ'>
+                    ʋ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('approx','alv', 'v')}>ɹ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('approx','alv', 'v')} id='symbol_ɹ'>
+                    ɹ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('approx','retro', 'v')}>ɻ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('approx','retro', 'v')} id='symbol_ɻ'>
+                    ɻ
+                </button>
+            </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('approx','pal', 'v')}>j</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('approx','pal', 'v')} id='symbol_j'>
+                    j
+                </button>
+            </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('approx','vel', 'v')}> ɰ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('approx','vel', 'v')} id='symbol_ɰ'> 
+                    ɰ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -460,15 +749,31 @@ let img_src = "media/images/consonants/viz-default.png";
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('latapp','alv', 'v')}>l</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('latapp','alv', 'v')} id='symbol_l'>
+                    l
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('latapp','retro', 'v')}> ɭ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('latapp','retro', 'v')} id='symbol_ɭ'>
+                     ɭ
+                    </button>
+                </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('latapp','pal', 'v')}>ʎ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('latapp','pal', 'v')} id='symbol_ʎ'>
+                    ʎ
+                </button>
+            </td>
             <td> </td>
-            <td> <button class = 'round' on:click = {() => clicking('latapp','vel', 'v')}>ʟ</button></td>
+            <td> 
+                <button class = 'round' on:click = {() => clicking('latapp','vel', 'v')} id='symbol_ʟ'>
+                    ʟ
+                </button>
+            </td>
             <td> </td>
             <td> </td>
             <td> </td>
@@ -790,6 +1095,12 @@ let img_src = "media/images/consonants/viz-default.png";
     
     body {
         background-color: #242331;
+    }
+    .button_highlighter {
+        position:absolute;
+        top: calc(5 * var(--section-size) + 105vh);
+        left: 77.5vw;
+        width: 9vw; 
     }
     button {
         padding-left: 0.5vw;
