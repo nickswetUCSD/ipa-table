@@ -126,15 +126,15 @@
             </svg>
 
             <!--IPA Images-->
-            <img class='ipaBig' id='ipaBig' src="../media/images/ipaConsonants.png"/>
+            <img class='ipaBig' id='ipaBig' src="media/images/ipaConsonants.png"/>
 
-            <img class='ipaVowels' id='ipaVowels' src="../media/images/ipaVowels.png"/>
+            <img class='ipaVowels' id='ipaVowels' src="media/images/ipaVowels.png"/>
 
-            <img class='ipaCons' id='ipaCons' src="../media/images/ipaConsonants.png"/>
+            <img class='ipaCons' id='ipaCons' src="media/images/ipaConsonants.png"/>
 
-            <img class='mouths' id='mouths' src="../media/images/mouths.png"/>
+            <img class='mouths' id='mouths' src="media/images/mouths.png"/>
 
-            <img class='study' id='study' src="../media/images/study.gif"/>
+            <img class='study' id='study' src="media/images/study.gif"/>
 
     </div>
 
