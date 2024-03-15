@@ -24,10 +24,44 @@
     $: if (loaded) {
         if (index) {
             setOpacity('whosonfirst', 0)
+            setOpacity('scrolltext', 0)
         } else {
             setOpacity('whosonfirst', 0.3)
+            setOpacity('scrolltext', 1)
+        }
+        if (index == 1) {
+            setOpacity('alphabet', 0.2)
+        } else {
+            setOpacity('alphabet', 0)
+        }
+        if ((index == 2)|(index == 3)|(index == 4)) {
+            setOpacity('ipaBig', 0.2)
+        } else {
+            setOpacity('ipaBig', 0)
+        }
+        if (index == 3) {
+            setOpacity('ipaVowels', 1)
+        } else {
+            setOpacity('ipaVowels', 0)
+        }
+        if ((index == 4) & (offset < 0.84)) {
+            setOpacity('ipaCons', 1)
+        } else {
+            setOpacity('ipaCons', 0)
+        }
+        if ((index == 6)) {
+            setOpacity('mouths', 0.2)
+        } else {
+            setOpacity('mouths', 0)
+        }
+        if ((index == 7)) {
+            setOpacity('study', 0.2)
+        } else {
+            setOpacity('study', 0)
         }
     }
+
+
 
     let letters = 'abcdefghijklmnopqrstuvwxyz'.split('')
    
@@ -61,8 +95,47 @@
             <p>total progress</p>
             <progress value={progress || 0} /> -->
         </div>
+            <!-- Who's On First GIF -->
+            <iframe class='whosonfirst' id='whosonfirst' src="https://giphy.com/embed/26vUOJ7yTuQxofK9O"  frameBorder="0" allowFullScreen></iframe >
 
-            <iframe class='whosonfirst' id='whosonfirst' src="https://giphy.com/embed/26vUOJ7yTuQxofK9O" width='1000vw' height='100vh' frameBorder="0" allowFullScreen></iframe ><p><a href="https://giphy.com/gifs/abbott-and-costello-whos-on-first-the-naughty-nineties-26vUOJ7yTuQxofK9O"></a>
+            <!-- Scroll Reminder -->
+            <svg class='scrolltext' id='scrolltext'>
+                <text class='arrow' fill='white' x="38.5vw" y="93vh" stroke='0px' style='font: 3vw sans-serif;'>
+                    ↓
+                </text>
+                <text fill='white' x="41vw" y="93vh" stroke='0px' style='font: 2vw sans-serif;'>
+                    scroll down to continue
+                </text>
+                <text class='arrow' fill='white' x="62vw" y="93vh"  style='font: italic 3vw sans-serif;'>
+                    ↓
+                </text>
+            </svg>
+
+            <!-- Alphabet SVG -->
+            <svg class='alphabet' id='alphabet'>
+                {#each letters as letter, i}
+                <text class='letter' fill='white' x='{10 + (80 * (i % 13) / 13)}vw' y='{40 + (20 * (Math.floor(i / 13)))}vh' style='font: italic 5vw sans-serif; animation-delay:{i * 2/26}s'> {letter} </text>
+                {/each}
+                <text fill='white' x="2vw" y="19vh" transform=" scale(2,3)" style='font: italic 5vw sans-serif;'>
+                    &lbrace;
+                </text>
+                <text fill='white' x="46vw" y="19vh" transform=" scale(2,3)" style='font: italic 5vw sans-serif;'>
+                    &rbrace;
+                </text>
+                <text outline='0px'fill='white' x='20vw' y='80vh' style='font: italic 3vw sans-serif;'> These do not represent all possible sounds.</text>
+            </svg>
+
+            <!--IPA Images-->
+            <img class='ipaBig' id='ipaBig' src="../media/images/ipaConsonants.png"/>
+
+            <img class='ipaVowels' id='ipaVowels' src="../media/images/ipaVowels.png"/>
+
+            <img class='ipaCons' id='ipaCons' src="../media/images/ipaConsonants.png"/>
+
+            <img class='mouths' id='mouths' src="../media/images/mouths.png"/>
+
+            <img class='study' id='study' src="../media/images/study.gif"/>
+
     </div>
 
     <div class="foreground" slot="foreground">
@@ -71,60 +144,45 @@
         <section class='section_one'>
             <h1 class='heading-intro'> The Sounds You Make 💬</h1>
             <p class='intro'> 
-                Linguists have long studied the vocal patterns and expressions made by people in order to understand why and how human speech evolved as it did. But oftentimes, vocal languages <b>don't</b> use our mouths to the fullest extent. </p>
+                Linguists have long studied the vocal patterns and expressions made by people in order to understand why and how human speech evolved as it did. But oftentimes, vocal languages <b>don't</b> use our mouths to the fullest extent. <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> (🖱️ An interactive web article by Nick Swetlin, Dante [last name], and Vivek [last name]) </p>
         </section>
         <section>
             <h1 class='heading-english'>
                 English: A Quick Example 📘
             </h1>
-            <p>
-                Take English, for example. In the English alphabet, there are 26 letters... but how many <i>sounds</i> are there? Even accounting for letters that can represent multiple sounds, the human mouth is capable of producing far more sounds than what the vanilla English alphabet can easily represent. 
+            <p class='desc-english'>
+                Take English, for example. <br><br> In the English alphabet, there are 26 letters... but how many <i>sounds</i> are there? Even accounting for letters that can represent multiple sounds, the human mouth is capable of producing far more sounds than what the vanilla English alphabet can easily represent.  <br><br><br><br><br><br><br><br><br><br><br><br> So what gives? <br>. . .<br>Is there a way we can represent <i> all </i> sounds? Perhaps there is.
             </p>
         </section>
         <section class='section_two'>
-            <p>
-                In 1888, linguists created the International Phonetic Alphabet (IPA). The different sounds that are expressible by humans can be grouped into parts (phones), based on the region(s) of the mouth used to express these sounds. The IPA uses the individual consonant phones to determine the pronunciation of words. Unlike a traditional alphabet, The IPA is applicable to almost all known languages, and can be modified or abbreviated to fit a specific language. 
-            </p>
-            <p> 
-                The IPA is divisible into vowels, consonants, and other symbols. For the purposes of this website, let's focus on vowels and "pulmonary" (breathing-outwards) consonants, since these are sounds that are commonly found in English.
+            <p class='ipa_history_text'>
+                In 1888, linguists created the <b> International Phonetic Alphabet (IPA).</b> <br><br><br><br>
+                
+                The different sounds that are expressible by humans can be grouped into parts (phones), based on the region(s) of the mouth used to express these sounds. The IPA uses these individual consonant phones to determine the pronunciation of words. Unlike a traditional alphabet, The IPA is applicable to <b>almost all known languages</b>, and can be modified or abbreviated to fit a specific language. <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                The IPA is divisible into vowels, consonants, and other symbols. For the purposes of this website, let's focus on <b style='color:#d55959;'>vowels</b> and "pulmonic" (breathing-outwards) <b style='color:#d55959;'>consonants</b>, since these are sounds that are commonly found in English.
             </p>
         </section>
         <section class='section_three'>
-            <p>
-                Vowels can be defined as sounds the voice makes with an open throat. By changing the shape of the lips, teeth, and tongue, different vowels can be made.
-            </p>
-
-            <p>
-                 The IPA vowel table condenses all of these      possibilities into two axes: tongue "forwardness" and tongue height. The further left a symbol is in the table, the more the tongue travels forward from the throat to create the vowel. The further up a symbol is in the table, the higher the tongue travels (eventually reaching the roof of the mouth).
-            </p>
-
-            <p>
-                 When two symbols stand right next to each other in this table, the symbol on the left is performed with unrounded lips, while the symbol on the right is performed with rounded lips.
-            </p>
-
-            <p>
-                The chart itself is quite literally a spatial map of how you should position your tongue to create these vowels.
+            <h1 class='heading-vowels'> IPA Vowels 🅰️ </h1>
+            <p class='desc-vowels'>
+                <br><br>
+                <b style='color:#d55959;'>Vowels</b> can be defined as sounds the voice makes with an open throat. By changing the shape of the lips, teeth, and tongue, different vowels can be made.<br><br><br>
+                 The IPA vowel table condenses all of these      possibilities into two axes:
+                    <b style='color:#efc51c'>tongue "forwardness"</b> and  
+                    <b style='color:#efc51c'>tongue height</b>.
+                 The further left a symbol is in the table, the more the tongue travels forward from the throat to create the vowel. The further up a symbol is in the table, the higher the tongue travels (eventually reaching the roof of the mouth).<br><br><br>
+                 When two symbols stand right next to each other in this table, the symbol on the left is performed with unrounded lips, while the symbol on the right is performed with rounded lips.<br><br><br><br>
+                The chart itself is quite literally a spatial map of how you should position your tongue 👅 to create these vowels.
             </p>
         </section>
 
         <section class='section_four'>
-            <p>
-                Consonants, on the other hand, are created by closing the lips, tongue, or teeth off to sound in different ways, creating hard, stopped sounds. They are often characterized by the place where the sound is made, the manner of the speech, and the voicing of sound itself. 
-            </p>
-
-            <p>
-                The IPA consonant table has two axes: the place of articulation and the manner of articulation. 
-            </p>
-
-            <p>
-                The place of articulation refers to <b>where</b> the sound being produced, and can refer to the labial (lips), dental (teeth), and alveolar (tongue/throat) regions when speaking in English. As the regions change, the tongue and focus of sound moves further back into the throat; other languages include glottal or uvular consonants, found even further back in the throat. 
-            </p>
-
-            <p>
-                The manner of articulation refers to <b>how</b> the consonant is sounded. Manner can range from single plosives to multi-hit trills, with other manners existing in the form of taps (tongue), fricatives (lip movement), or nasals (sound traveling up the nose). Approximants and laterals are more precise tongue movements, where the air travels around the tip or sides of the tongue, respectively. Some articulation manners can only be performed with certain parts of the mouth.
-            </p>
-
-            <p>
+            <h1 class='heading-cons'> IPA Consonants 🅱️ </h1>
+            <p class='desc-cons'>
+                <b style='color:#d55959;'>Consonants</b>, on the other hand, are created by closing the lips, tongue, or teeth off to sound in different ways, creating hard, stopped sounds. They are often characterized by the place where the sound is made, the manner of the speech, and the voicing of sound itself. <br><br><br>
+                The IPA consonant table has two axes: the <b style='color:#efc51c'>place of articulation</b> and the <b style='color:#efc51c'>manner of articulation</b>. <br><br><br>
+                The place of articulation refers to <b>where</b> the sound being produced, and can refer to the labial (lips), dental (teeth), and alveolar (tongue/throat) regions when speaking in English. As the regions change, the tongue and focus of sound moves further back into the throat; other languages include glottal or uvular consonants, found even further back in the throat. <br><br><br>
+                The manner of articulation refers to <b>how</b> the consonant is sounded. Manner can range from single plosives to multi-hit trills, with other manners existing in the form of taps (tongue), fricatives (lip movement), or nasals (sound traveling up the nose). Approximants and laterals are more precise tongue movements, where the air travels around the tip or sides of the tongue, respectively. Some articulation manners can only be performed with certain parts of the mouth. <br><br><br>
                 When two symbols stand right next to each other in this table, the symbol on the left is performed without voice, while the symbol on the right is performed with voice.
             </p>
 
@@ -167,7 +225,7 @@
         </h2>
         <div class='translator_description'>
             <p> 
-                (<b style='color:#efc51c'>Translate</b> your favorite words into IPA using this incredible tool from <a class='una' href="https://unalengua.com/ipa-translate?ttsLocale=en-US&voiceId=Salli"> Una Lengua!</a>)
+                (<b style='color:#efc51c'>Translate</b> your favorite words into IPA using this incredible tool from <a class='una' href="https://unalengua.com/ipa-translate?ttsLocale=en-US&voiceId=Salli"> Una Lengua!</a><br> Then, go back up and plug your IPA into the table!)<br>
                 <br>
                  &ensp; &ensp; bug → bˈʌɡ <br>
                  &ensp; strengths → stɹˈɛŋθs <br>
@@ -175,11 +233,21 @@
             </p>
         </div>
         <iframe class='translator' style="border:none;" src="https://unalengua.com/ipa-translate?ttsLocale=en-US&voiceId=Salli"></iframe>
-        <h2 class='heading-final'>
-            Final Thoughts 🧠
-        </h2>
+        <h1 class='heading-considerations'> 
+            Considerations 🧠 
+        </h1>
+        <div class='considerations'>
+            <p> 
+                The tables we have presented are just <i> one part </i> of the full IPA table. Yes, language is <i>that vast.</i> <br> We hope the phoneme animations serve as a decent approximation for what actually goes on in your mouth.
+            </p>
+        </div>
+        </section>
+        <section>
+        <h1 class='heading-final'>
+            Final Thoughts 💡
+        </h1>
         <p class='final'> 
-            Language is more <b>complex</b> than we know, not just in how it is structured, but in its performance. <br> It is unlikely for an inexperienced linguist to have spoken (or even percieve the differences between) all the sounds in these tables! <br> <br>It goes to show how dedicatedly precise humans are at making mouth sounds.
+            Language is more <b>complex</b> than we know, not just in how it is structured, but in its performance. <br> It is difficult for the average person to have spoken (or even notice the differences between) all the sounds in these tables! <br> <br>Knowing IPA is very useful for learning new languages, and for theorizing what are possible sounds versus impossible sounds for humans to make. We hope that the next time you hear a word you don't know, you're reminded of the usefulness of the paradigm that the IPA provides!
         </p>
         <h2 class='heading-references'>
             References🔗
@@ -218,6 +286,10 @@
 </body>
 
 <style>
+
+    :root {
+        --slowleftscroll: 0vw;
+    }
     body {
         overflow-x: hidden;
         overflow-y: hidden;
@@ -238,7 +310,7 @@
         margin: 0 auto;
         height: auto;
         position: relative;
-        outline: red solid 3px;
+        /* outline: red solid 3px; */
     }
 
     .progress-bars {
@@ -283,9 +355,9 @@
     
     section {
         height: 200vh; /* Change section-size CSS variable in App.svelte too if you change this*/
-         background-color: rgba(0, 0, 0, 0.2); 
+         /* background-color: rgba(0, 0, 0, 0.2); 
         color: white;  
-         outline: magenta solid 1vh;
+         outline: magenta solid 1vh; */
         text-align: center; 
         max-width: 100vw; 
         color: black;
@@ -317,42 +389,96 @@
 
     .heading-translator {
         position: absolute;
-        left: 36vw;
-        top: 1200vh;
+        left: 37vw;
+        top: 1250vh;
+    }
+
+    .heading-considerations {
+        position: absolute;
+        left: 34vw;
+        top: 1390vh;
     }
 
     .heading-references {
         position: absolute;
         left: 41vw;
-        top: 1400vh;
+        top: 1600vh;
     }
 
     .heading-final {
         position: absolute;
-        left: 41vw;
-        top: 1330vh;
+        left: 35vw;
+        top: 1490vh;
     }
 
     .heading-intro {
         position: absolute;
         left: 20vw;
-        top: 30vh;
+        top: 20vh;
         font-size: 10vh;
+    }
+
+    .heading-english {
+        position: absolute;
+        left: 30vw;
+        top: 230vh;
+    }
+
+    .heading-vowels {
+        position: absolute;
+        left: 60vw;
+        top: 620vh;
+    }
+
+    .heading-cons {
+        position: absolute;
+        left: 57vw;
+        top: 820vh;
     }
 
     .intro {
         position: absolute;
         left: 2vw;
-        top: 50vh;
+        top: 40vh;
         font-size: 3.5vh;
-        width: 90vw
+        width: 90vw;
+    }
+
+    .desc-english {
+        position: absolute;
+        left: 0vw;
+        top: 250vh;
+    }
+
+    .ipa_history_text {
+        position: absolute;
+        left: 0vw;
+        top: 430vh;
+    }
+
+    .considerations {
+        position: absolute;
+        left: 2vw;
+        top: 1405vh;
+    }
+
+    .desc-vowels {
+        position: absolute;
+        left: 40vw;
+        top: 630vh;
+    }
+
+    .desc-cons {
+        position: absolute;
+        left: 40vw;
+        top: 840vh;
     }
 
     .references {
         position: absolute;
         width: 90vw;
         left: 6vw;
-        top: 1410vh;
+        top: 1610vh;
         list-style-type: square;
         font-size: 2.5vh;
         text-align: left;
@@ -361,8 +487,8 @@
     .final {
         position: absolute;
         width: 90vw;
-        left: 2vw;
-        top: 1336vh;
+        left: 0vw;
+        top: 1504vh;
         font-size: 3.5vh;
     }
 
@@ -393,19 +519,19 @@
         margin-bottom: 1vh;
         list-style-type: square;
         
-        font-size: 3vh;
+        font-size: 3.5vh;
     }
 
     .explanation {
         position: absolute;
-        left: 15vw;
+        left: 10vw;
         top: 1065vh;
     }
 
     .translator {
         position: absolute;
         left: 10vw;
-        top: 1240vh;
+        top: 1300vh;
         width: 75vw;
         height: 55vh;
     }
@@ -429,7 +555,7 @@
     .translator_description {
         position: absolute;
         left: 10vw;
-        top: 1210vh;
+        top: 1260vh;
     }
 
     .una {
@@ -456,6 +582,137 @@
         opacity: 0.3;
         transition: 1s
     }
+
+    .scrolltext {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        left: 0vw;
+        top: 0vh;
+        opacity: 1;
+        transition: 1s
+    }
+
+    .arrow {
+        animation: arrowAnimation 2s infinite ease-in-out;
+    }
+
+    .alphabet {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        left: 0vw;
+        top: 0vh;
+        opacity: 0;
+        transition: 1s;
+    }
+
+    .mouths {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        left: 0vw;
+        top: 0vh;
+        opacity: 0;
+        transition: 1s;
+    }
+
+    .ipaBig {
+        position: absolute;
+        width: 150vw;
+        height: 150vh;
+        left: var(--slowleftscroll);
+        top: 0vh;
+        opacity: 0;
+        transition: 1s;
+        animation: scrollAnimation 100s infinite linear;
+    }
+
+    .ipaVowels {
+        position: absolute;
+        width: 35vw;
+        height: 55vh;
+        left: 5vw;
+        top: 20vh;
+        opacity: 0;
+        transition: 1s;
+        object-fit: scale-down;
+    }
+
+    .ipaCons {
+        position: absolute;
+        width: 35vw;
+        height: 55vh;
+        left: 5vw;
+        top: 20vh;
+        opacity: 0;
+        transition: 1s;
+        object-fit: scale-down;
+        
+    }
+
+    .study {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        left: 0vw;
+        top: 0vh;
+        opacity: 0;
+        transition: 1s;
+    }
+
+    .letter {
+        animation: letterAnimation 2s infinite ease-in-out;
+    }
+
+    @keyframes scrollAnimation {
+        0% {
+            left: 0vw;
+            top: 0vh;
+        }
+        50% {
+            left: -50vw;
+            top: -20vh;
+        }
+        100% {
+            left: 0vw;
+            top: 0vh;
+        }
+    }
+
+    @keyframes letterAnimation {
+        0% {
+            transform: translate(0vw);
+        }
+        50% {
+            transform: translate(3vw);
+        }
+        100% {
+            transform: translate(0vw);
+        }
+    }
+
+    @keyframes arrowAnimation {
+        0% {
+            translate: 0vw 0vh;
+        }
+        33% {
+            translate: 0vw 0vh;
+        }
+        50% {
+            translate: 0vw 1.5vh;
+        }
+        66% {
+            translate: 0vw 0vh;
+        }
+        83% {
+            translate: 0vw 1.5vh;
+        }
+        100% {
+            translate: 0vw 0vh;
+        }
+    }
+
 
     
 </style>

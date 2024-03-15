@@ -4,7 +4,6 @@ import * as d3 from 'd3';
 import { onMount } from 'svelte'
 import { base } from '$app/paths'
 export let sound = null;
-export let button_does_what;
 
 
 // onMount(() => {
@@ -16,7 +15,7 @@ export let button_does_what;
 let last_clicked_row;
 let last_clicked_col;
 let last_clicked_voic;
-button_does_what = 'whether a consonant is voiced or not.';
+let lightdarktext = 'voiced';
 
 let name_dict = {'bilab': 'Bilabial', 'labdent': 'Labio-Dental',
  'dent': 'Dental', 'alv': 'Alveolar','palv':  'Post-Alveolar', 
@@ -338,12 +337,12 @@ function setCons(n){
     var r = document.querySelector(':root');
     if (n) {
         all_string = all_string_cons;
-        button_does_what = 'whether a consonant is voiced or not.';
+        lightdarktext = 'voiced';
         r.style.setProperty('--c_opacity', 1);
         r.style.setProperty('--v_opacity', 0.25);
     } else {
         all_string = all_string_vowels;
-        button_does_what = 'whether a vowel is rounded or not.';
+        lightdarktext = 'rounded';
         r.style.setProperty('--c_opacity', 0.25);
         r.style.setProperty('--v_opacity', 1);
     }
@@ -814,8 +813,9 @@ let img_src = "media/images/consonants/viz-default.png";
         </tr>
     </table>
 
-    <!-- vowel table -->
+    
     {:else}
+    <!-- vowel table -->
     <table class='table-v'>
         <tr>
             <th></th>
@@ -1087,8 +1087,9 @@ let img_src = "media/images/consonants/viz-default.png";
     </table>
     {/if}
 
-    <!-- Dataset Hyperlink -->
-    <a href='https://phonetics.ucla.edu/course/chapter1/chapter1.html'>Link to audio file dataset here </a>
+    <!--Changing lighter/darker-->
+    <p class='lightdark'> Lighter buttons are <b style='color:#efc51c'>{'un'.concat(lightdarktext)}</b> sounds. Darker buttons are <b style='color:#efc51c'>{lightdarktext}</b> sounds. </p>
+
 
     <!-- SVG Drawings -->
     <svg>
@@ -1250,7 +1251,7 @@ let img_src = "media/images/consonants/viz-default.png";
     }
     .button_highlighter {
         position:absolute;
-        top: calc(5 * var(--section-size) + 105vh);
+        top: calc(5 * var(--section-size) + 115vh);
         left: 77.5vw;
         width: 8.5vw;
         
@@ -1268,7 +1269,7 @@ let img_src = "media/images/consonants/viz-default.png";
 
     .button_highlighter:hover {
         position:absolute;
-        top: calc(5 * var(--section-size) + 105vh);
+        top: calc(5 * var(--section-size) + 115vh);
         left: 77.5vw;
         width: 8.5vw;
         
@@ -1282,6 +1283,13 @@ let img_src = "media/images/consonants/viz-default.png";
 
     ::placeholder {
 
+    }
+    .lightdark {
+        position:absolute;
+        top: calc(5 * var(--section-size) + 114vh);
+        left: 30vw;
+        color: white;
+        font-size: 2vh;
     }
     button {
         padding-left: 0.5vw;
@@ -1326,7 +1334,7 @@ let img_src = "media/images/consonants/viz-default.png";
     }
     .c-switch {
         position: absolute;
-        top: calc(5 * var(--section-size) + 105vh);
+        top: calc(5 * var(--section-size) + 115vh);
         left: 8vw;
         width: 8vw;
         text-align: center;
@@ -1337,7 +1345,7 @@ let img_src = "media/images/consonants/viz-default.png";
     }
     .c-switch:hover {
         position: absolute;
-        top: calc(5 * var(--section-size) + 105vh);
+        top: calc(5 * var(--section-size) + 115vh);
         left: 8vw;
         width: 8vw;
         text-align: center;
@@ -1348,7 +1356,7 @@ let img_src = "media/images/consonants/viz-default.png";
     }
     .v-switch {
         position: absolute;
-        top: calc(5 * var(--section-size) + 105vh);
+        top: calc(5 * var(--section-size) + 115vh);
         left: 16vw;
         width: 5vw;
         text-align: center;
@@ -1359,7 +1367,7 @@ let img_src = "media/images/consonants/viz-default.png";
     }
     .v-switch:hover {
         position: absolute;
-        top: calc(5 * var(--section-size) + 105vh);
+        top: calc(5 * var(--section-size) + 115vh);
         left: 16vw; 
         width: 5vw;
         text-align: center;
@@ -1389,7 +1397,7 @@ let img_src = "media/images/consonants/viz-default.png";
         border-collapse: collapse;
 
         position:absolute;
-        top: calc(5 * var(--section-size) + 110vh);
+        top: calc(5 * var(--section-size) + 120vh);
         left: 8vw;
     }
     .table-v {
@@ -1413,7 +1421,7 @@ let img_src = "media/images/consonants/viz-default.png";
         border-collapse: collapse;
 
         position:absolute;
-        top: calc(5 * var(--section-size) + 110vh);
+        top: calc(5 * var(--section-size) + 120vh);
         left: 16vw;
     }
     table tr {
@@ -1466,14 +1474,14 @@ let img_src = "media/images/consonants/viz-default.png";
     
     a {
         position: absolute;
-        top: calc(5 * var(--section-size) + 165vh);
+        top: calc(5 * var(--section-size) + 175vh);
         left: 5vw;
         font-size: 2vh;
     }
 
     .rowcol_text_box {
         position: absolute;
-        top: calc(5 * var(--section-size) + 164.5vh);
+        top: calc(5 * var(--section-size) + 174.5vh);
         left: 10vw;
         font-size: 2.5vh;
 
@@ -1505,7 +1513,7 @@ let img_src = "media/images/consonants/viz-default.png";
 
     .specific_text_box {
         position: absolute;
-        top: calc(5 * var(--section-size) + 164.5vh);
+        top: calc(5 * var(--section-size) + 174.5vh);
         left: 37vw;
         font-size: 3vh;
 
@@ -1545,17 +1553,10 @@ let img_src = "media/images/consonants/viz-default.png";
 
 
     }
-    .con_image{
-        /* position: absolute;
-        left: var(--svgleft);
-        top: var(--svgtop); */
-        /* width: 30vw;
-        height: 30vh; */
-    }
     svg {
         position: absolute;
         left: var(--svgleft);
-        top: calc(5 * var(--section-size) + 165vh);
+        top: calc(5 * var(--section-size) + 175vh);
         width: 20vw;
         height: 20vw;
         
@@ -1567,7 +1568,7 @@ let img_src = "media/images/consonants/viz-default.png";
         height: auto;
         position: absolute;
         left: 68vw;
-        top: calc(5 * var(--section-size) + 165vh);
+        top: calc(5 * var(--section-size) + 175vh);
     }
 
     .plos {
