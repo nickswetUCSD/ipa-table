@@ -16,6 +16,8 @@ body {
     font-variation-settings: "wdth" 100;
     background-color: #242331;
     margin: 0px 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 /* Disable scrollbars */

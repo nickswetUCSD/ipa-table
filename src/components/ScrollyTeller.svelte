@@ -2,6 +2,7 @@
     import App from '../components/App.svelte';
     import Scroller from "@sveltejs/svelte-scroller";
     import { fly, draw } from "svelte/transition";
+    import { onMount } from 'svelte';
     // import { button_does_what } from '../components/App.svelte';
     
     
@@ -14,6 +15,36 @@
             document.getElementById(image_id).style.opacity = opacity;
         }
     }
+    function setVolumes(volumes) {
+        for (let i = 0; i< music_list.length; i++) {
+            document.getElementById(music_list[i]).volume = volumes[i];
+        }
+    }
+
+    let audioState = 0;
+    let music_list = ['ipa-drums', 'ipa-rhodes', 'ipa-bass', 'ipa-vtrack', 'ipa-ctrack'];
+
+    function changeAudio() {
+        if (audioState == 0) {
+            audioState = 1;
+
+            setVolumes([0, 1, 0, 0, 0])
+            for (let i = 0; i < music_list.length; i++) {
+                document.getElementById(music_list[i]).play();
+            }
+        }
+        else {
+            audioState = 0;
+
+            for (let i = 0; i < music_list.length; i++) {
+                document.getElementById(music_list[i]).pause();
+                document.getElementById(music_list[i]).currentTime = 0;
+            }
+        }
+    }
+
+    onMount (() => {
+    console.log('mounted');});
 
     $: if (index) {
         if (index > 0) {
@@ -28,11 +59,17 @@
         } else {
             setOpacity('whosonfirst', 0.3)
             setOpacity('scrolltext', 1)
+            setVolumes([0, 1, 0, 0, 0])
         }
         if (index == 1) {
             setOpacity('alphabet', 0.2)
+            setVolumes([0, 1, 1, 0, 0])
         } else {
             setOpacity('alphabet', 0)
+        }
+        if (index == 2) {
+            setVolumes([0.3, 1, 1, 0, 0])
+        } else {
         }
         if ((index == 2)|(index == 3)|(index == 4)) {
             setOpacity('ipaBig', 0.2)
@@ -41,25 +78,37 @@
         }
         if (index == 3) {
             setOpacity('ipaVowels', 1)
+            setVolumes([0.3, 1, 1, 1, 0])
         } else {
             setOpacity('ipaVowels', 0)
+        }
+        if (index == 4) {
+            setVolumes([0.3, 1, 1, 0, 1])
+        } else {
         }
         if ((index == 4) & (offset < 0.84)) {
             setOpacity('ipaCons', 1)
         } else {
             setOpacity('ipaCons', 0)
         }
+        if (index == 5) {
+            setVolumes([0.1, 0.3, 0.3, 0, 0])
+        } else {
+        }
         if ((index == 6)) {
             setOpacity('mouths', 0.2)
+            setVolumes([0.1, 0.3, 0.3, 0, 0])
         } else {
             setOpacity('mouths', 0)
         }
         if ((index == 7)) {
             setOpacity('study', 0.2)
+            setVolumes([0, 1, 0, 0, 0])
         } else {
             setOpacity('study', 0)
         }
     }
+
 
 
 
@@ -95,7 +144,7 @@
             <p>total progress</p>
             <progress value={progress || 0} /> -->
         </div>
-            <!-- Who's On First GIF -->
+            <!-- Who's On First GIF -->    
             <iframe class='whosonfirst' id='whosonfirst' src="https://giphy.com/embed/26vUOJ7yTuQxofK9O"  frameBorder="0" allowFullScreen></iframe >
 
             <!-- Scroll Reminder -->
@@ -139,13 +188,38 @@
     </div>
 
     <div class="foreground" slot="foreground">
+
+        <audio class='music' id='pluh' loop=true src='media/audio/music/pluh.mp3'/>
+        <audio class='music' id='ipa-drums' loop=true src='media/audio/music/ipa-drums.wav'/>
+        <audio class='music' id='ipa-rhodes' loop=true src='media/audio/music/ipa-rhodes.wav'/>
+        <audio class='music' id='ipa-bass' loop=true src='media/audio/music/ipa-bass.wav'/>
+        <audio class='music' id='ipa-vtrack' loop=true src='media/audio/music/ipa-vtrack.wav'/>
+        <audio class='music' id='ipa-ctrack' loop=true src='media/audio/music/ipa-ctrack.wav'/>
+
+        <label class="switch">
+            <input type="checkbox" on:change={() => changeAudio()}>
+            <span class="slider round"></span>
+          </label>
         
 
         <section class='section_one'>
             <h1 class='heading-intro'> The Sounds You Make 💬</h1>
             <p class='intro'> 
-                Linguists have long studied the vocal patterns and expressions made by people in order to understand why and how human speech evolved as it did. But oftentimes, vocal languages <b>don't</b> use our mouths to the fullest extent. <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> (🖱️ An interactive web article by Nick Swetlin, Dante [last name], and Vivek [last name]) </p>
+                Linguists have long studied the vocal patterns and expressions made by people in order to understand why and how human speech evolved as it did. But oftentimes, vocal languages <b>don't</b> use our mouths to the fullest extent. <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> (🖱️ An interactive web article by 
+                <b style='color:#efc51c; -webkit-text-stroke-width: 0.1vh;-webkit-text-stroke-color: black;'>Nick Swetlin
+                </b>,
+                <b style='color:#efc51c; -webkit-text-stroke-width: 0.1vh;-webkit-text-stroke-color: black;'>Dante Testini
+                </b>,
+                and 
+                <b style='color:#efc51c; -webkit-text-stroke-width: 0.1vh;-webkit-text-stroke-color: black;'>Vivek Srinivasan
+                </b>) 
+                <br><br> <b>Music 🎵 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</b>
+            </p>
         </section>
+        <label class="switch">
+            <input type="checkbox" on:change={() => changeAudio()}>
+            <span class="slider round"></span>
+          </label>
         <section>
             <h1 class='heading-english'>
                 English: A Quick Example 📘
@@ -182,7 +256,7 @@
                 <b style='color:#d55959;'>Consonants</b>, on the other hand, are created by closing the lips, tongue, or teeth off to sound in different ways, creating hard, stopped sounds. They are often characterized by the place where the sound is made, the manner of the speech, and the voicing of sound itself. <br><br><br>
                 The IPA consonant table has two axes: the <b style='color:#efc51c'>place of articulation</b> and the <b style='color:#efc51c'>manner of articulation</b>. <br><br><br>
                 The place of articulation refers to <b>where</b> the sound being produced, and can refer to the labial (lips), dental (teeth), and alveolar (tongue/throat) regions when speaking in English. As the regions change, the tongue and focus of sound moves further back into the throat; other languages include glottal or uvular consonants, found even further back in the throat. <br><br><br>
-                The manner of articulation refers to <b>how</b> the consonant is sounded. Manner can range from single plosives to multi-hit trills, with other manners existing in the form of taps (tongue), fricatives (lip movement), or nasals (sound traveling up the nose). Approximants and laterals are more precise tongue movements, where the air travels around the tip or sides of the tongue, respectively. Some articulation manners can only be performed with certain parts of the mouth. <br><br><br>
+                The manner of articulation refers to <b>how</b> the consonant is sounded. Manner can range from single plosives to multi-hit trills, with other manners existing in the form of taps (tongue), fricatives (friction), or nasals (sound traveling up the nose). Approximants and laterals are more precise tongue movements, where the air travels around the tip or sides of the tongue, respectively. Some articulation manners can only be performed with certain parts of the mouth. <br><br><br>
                 When two symbols stand right next to each other in this table, the symbol on the left is performed without voice, while the symbol on the right is performed with voice.
             </p>
 
@@ -247,7 +321,7 @@
             Final Thoughts 💡
         </h1>
         <p class='final'> 
-            Language is more <b>complex</b> than we know, not just in how it is structured, but in its performance. <br> It is difficult for the average person to have spoken (or even notice the differences between) all the sounds in these tables! <br> <br>Knowing IPA is very useful for learning new languages, and for theorizing what are possible sounds versus impossible sounds for humans to make. We hope that the next time you hear a word you don't know, you're reminded of the usefulness of the paradigm that the IPA provides!
+            Language is more <b>complex</b> than we know, not just in how it is structured, but in its performance. <br> It is difficult for the average person to pronounce (or even notice the differences between) all the sounds in these tables! <br> <br>Knowing IPA is very useful for learning new languages, and for theorizing what are possible sounds versus impossible sounds for humans to make. We hope that the next time you hear a word you don't know, you're reminded of the usefulness of the paradigm that the IPA provides!
         </p>
         <h2 class='heading-references'>
             References🔗
@@ -290,6 +364,73 @@
     :root {
         --slowleftscroll: 0vw;
     }
+
+    .music {
+        transition: 1s;
+    }
+
+    /* The switch - the box around the slider */
+    .switch {
+    position: absolute;
+    display: inline-block;
+    width: 4vw;
+    height: 4vh;
+    left: 50vw;
+    top: 145vh;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    }
+
+    /* The slider */
+    .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #242331;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    .slider:before {
+    position: absolute;
+    content: "";
+    height: 4vh;
+    width: 2vw;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    }
+
+    input:checked + .slider {
+    background-color: #efc51c;
+    }
+
+    /* input:focus + .slider {
+    box-shadow: 0 0 1px #efc51c;
+    } */
+
+    input:checked + .slider:before {
+    -webkit-transform: translateX(2vw);
+    -ms-transform: translateX(2vw);
+    transform: translateX(2vw);
+    }
+
+    .slider.round {
+    border-radius: 2vh;
+    }
+
+    .slider.round:before {
+    border-radius: 50%;
+    }
+
     body {
         overflow-x: hidden;
         overflow-y: hidden;
@@ -648,7 +789,6 @@
         opacity: 0;
         transition: 1s;
         object-fit: scale-down;
-        
     }
 
     .study {
